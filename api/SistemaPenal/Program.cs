@@ -1,14 +1,26 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaPenal.Context;
+using SistemaPenal.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
+
+// MODELO:
+// builder.Services.AddScoped<IEntidadeRepository, EntidadeRepository>();
+// builder.Services.AddScoped<IEntidadeService, EntidadeService>();
+// builder.Services.AddAutoMapper(typeof(EntidadeService).Assembly);
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var conectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
+builder.Services.AddDbContext<AppDbContext>(x => x.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
