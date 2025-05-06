@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
 
+// ana: as ABSTRATAS (Pessoa, Atividade) não precisam disso aqui embaixo!
 // MODELO:
 // builder.Services.AddScoped<IEntidadeRepository, EntidadeRepository>();
 // builder.Services.AddScoped<IEntidadeService, EntidadeService>();
@@ -13,7 +14,6 @@ builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var conectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
