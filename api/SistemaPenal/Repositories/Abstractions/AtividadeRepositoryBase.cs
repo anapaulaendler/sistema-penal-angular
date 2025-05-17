@@ -1,6 +1,8 @@
 using SistemaPenal.Entities.Abstractions;
 using SistemaPenal.Repositories.Abstractions;
 using SistemaPenal.Context;
+using SistemaPenal.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaPenal.Repositories.Base;
 
@@ -11,8 +13,11 @@ where TEntity : Atividade
     {
     }
 
-}
+    public async Task<List<TEntity>> GetStudyActivitiesByPrisonerIdAsync(Guid prisioneiroId, CancellationToken cancellation = default)
+    {
+        List<TEntity> atividades = [];
+        atividades = await _dbSet.Where(x => x.PrisioneiroId == prisioneiroId).ToListAsync();
 
-internal interface IAtividadeRepositoryBase<TEntity> where TEntity : Atividade
-{
+        return atividades;
+    }
 }

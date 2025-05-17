@@ -9,4 +9,5 @@ where TDTO : AtividadeDTO where TCreateDTO : CriarAtividadeDTO
 {
     Task<OperationResult<TEntity>> CriarAtividadeAsync(TCreateDTO entity, CancellationToken cancellation = default);
     Task<List<TDTO>> GetAtividadesAsync(CancellationToken cancellation = default);
+    Task<List<TDTO>> GetAtividadesPrisioneiroAsync(Guid prisioneiroId, CancellationToken cancellation = default);
 }

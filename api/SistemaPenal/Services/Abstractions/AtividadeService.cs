@@ -33,7 +33,7 @@ where TEntity : Atividade, IEntity where TDTO : AtividadeDTO where TCreateDTO : 
     {
         var result = new OperationResult<TEntity>();
 
-        if (entityCreateDTO is null)
+        if (entityCreateDTO is null || entityCreateDTO.PrisioneiroId == Guid.Empty)
         {
             return new OperationResult<TEntity>(
                 new ResultMessage("Invalid activity creation request.", ResultTypes.Error));
@@ -60,4 +60,12 @@ where TEntity : Atividade, IEntity where TDTO : AtividadeDTO where TCreateDTO : 
         return result;
     }
 
+    public async Task<List<TDTO>> GetAtividadesPrisioneiroAsync(Guid prisioneiroId, CancellationToken cancellation = default)
+    {
+        if (prisioneiroId == Guid.Empty)
+            throw new ArgumentException("Invalid prisoner ID.");
+
+        var atividades = await _repository.GetStudyActivitiesByPrisonerIdAsync(prisioneiroId, cancellation);
+        return atividades.Select(atividade => _mapper.Map<TDTO>(atividade)).ToList();
+    }
 }
