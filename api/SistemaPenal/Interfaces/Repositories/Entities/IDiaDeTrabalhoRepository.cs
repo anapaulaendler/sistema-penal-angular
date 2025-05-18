@@ -1,8 +1,7 @@
 using SistemaPenal.Entities;
-using SistemaPenal.Interfaces.Repositories.Abstractions;
 
-namespace PenalSystem.Domain.Interfaces.Repositories.Entities;
+namespace SistemaPenal.Interfaces.Repositories.Entities;
 
-public interface IDiaDeTrabalhoRepository : IRepositoryBase<DiaDeTrabalho>
+public interface IDiaDeTrabalhoRepository : IAtividadeRepositoryBase<DiaDeTrabalho>
 {
 }

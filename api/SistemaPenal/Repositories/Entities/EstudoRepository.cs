@@ -1,11 +1,11 @@
-using PenalSystem.Domain.Interfaces.Repositories.Entities;
+using SistemaPenal.Interfaces.Repositories.Entities;
 using SistemaPenal.Context;
 using SistemaPenal.Entities;
-using SistemaPenal.Repositories.Abstractions;
+using SistemaPenal.Repositories.Base;
 
-namespace PenalSystem.Infra.Data.Repositories.Entities;
+namespace SistemaPenal.Repositories.Entities;
 
-public class EstudoRepository : RepositoryBase<Estudo>, IEstudoRepository
+public class EstudoRepository : AtividadeRepositoryBase<Estudo>, IEstudoRepository
 {
     public EstudoRepository(AppDbContext appContext) : base(appContext)
     {
