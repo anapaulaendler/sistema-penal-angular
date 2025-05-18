@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaPenal.Context;
 using SistemaPenal.Interfaces;
+using SistemaPenal.Interfaces.Repositories.Entities;
+using SistemaPenal.Interfaces.Services.Entities;
+using SistemaPenal.Repositories.Entities;
+using SistemaPenal.Services.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,10 @@ builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
 // builder.Services.AddScoped<IEntidadeRepository, EntidadeRepository>();
 // builder.Services.AddScoped<IEntidadeService, EntidadeService>();
 // builder.Services.AddAutoMapper(typeof(EntidadeService).Assembly);
+
+builder.Services.AddScoped<IPrisioneiroRepository, PrisioneiroRepository>();
+builder.Services.AddScoped<IPrisioneiroService, PrisioneiroService>();
+builder.Services.AddAutoMapper(typeof(PrisioneiroService).Assembly);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

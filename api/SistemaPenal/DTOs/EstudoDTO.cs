@@ -1,15 +1,11 @@
 namespace SistemaPenal.DTOs;
 
-public class EstudoDTO
+public class EstudoDTO : AtividadeDTO
 {
-    public Guid Id { get; set; }
-    public DateTime Date { get; set; }
-    public required string Subject { get; set; }
+    public required string Materia { get; set; }
 }
 
-public class CriarEstudoDTO
+public class EstudoCreateDTO : AtividadeCreateDTO 
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public DateTime Date { get; set; } = DateTime.Today;
-    public required string Subject { get; set; }
+    public required string Materia { get; set; }
 }

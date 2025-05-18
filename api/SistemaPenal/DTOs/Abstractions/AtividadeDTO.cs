@@ -1,5 +1,3 @@
-using SistemaPenal.DTOs;
-
 namespace SistemaPenal.DTOs;
 
 public abstract class AtividadeDTO : IDTO
@@ -8,7 +6,7 @@ public abstract class AtividadeDTO : IDTO
     public Guid PrisioneiroId { get; set; }
 }
 
-public abstract class CriarAtividadeDTO : IDTO
+public abstract class AtividadeCreateDTO : IDTO
 {
     public override Guid Id { get; set; } = Guid.NewGuid();
     public DateTime Data { get; set; } = DateTime.Today;

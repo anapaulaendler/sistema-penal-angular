@@ -1,16 +1,11 @@
 namespace SistemaPenal.DTOs;
 
-public class WorkDayDTO
+public class DiaDeTrabalhoDTO : AtividadeDTO
 {
-    public Guid Id { get; set; }
-    public DateTime Date { get; set; }
-    public string? Description { get; set; }
-
+    public string? Descricao { get; set; }
 }
 
-public class WorkDayCreateDTO
+public class DiaDeTrabalhoCreateDTO : AtividadeCreateDTO
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public DateTime Date { get; set; } = DateTime.Today;
-    public string? Description { get; set; }
+    public string? Descricao { get; set; }
 }

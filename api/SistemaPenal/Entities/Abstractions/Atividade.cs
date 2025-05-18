@@ -8,6 +8,5 @@ public abstract class Atividade : IEntity
     public DateTime Data { get; set; }
     public Guid PrisioneiroId { get; set; }
 
-    // ana: faço prisioneiro amanhã juro!
-    // public Prisioneiro Prisioneiro { get; set; }
+    public Prisioneiro Prisioneiro { get; set; } = null!;
 }

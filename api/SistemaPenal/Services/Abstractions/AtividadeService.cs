@@ -9,7 +9,7 @@ using SistemaPenal.Entities.Abstractions;
 namespace SistemaPenal.Services.Base;
 
 public abstract class AtividadeService<TEntity, TDTO, TCreateDTO, TRepository> : IAtividadeServiceBase<TEntity, TDTO, TCreateDTO>  
-where TEntity : Atividade, IEntity where TDTO : AtividadeDTO where TCreateDTO : CriarAtividadeDTO where TRepository : IAtividadeRepositoryBase<TEntity>
+where TEntity : Atividade, IEntity where TDTO : AtividadeDTO where TCreateDTO : AtividadeCreateDTO where TRepository : IAtividadeRepositoryBase<TEntity>
 {
     protected readonly TRepository _repository;
     protected readonly IUnitOfWork _uow;
