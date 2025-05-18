@@ -5,7 +5,7 @@ using SistemaPenal.Interfaces.Services.Entities;
 namespace SistemaPenal.Controllers;
 
 [ApiController]
-[Route("diaDeTrabalhos")]
+[Route("diasDeTrabalho")]
 public class DiaDeTrabalhoController : ControllerBase
 {
     private readonly ILogger<DiaDeTrabalhoController> _logger;
