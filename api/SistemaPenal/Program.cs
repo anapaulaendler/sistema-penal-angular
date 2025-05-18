@@ -20,6 +20,10 @@ builder.Services.AddScoped<IPrisioneiroRepository, PrisioneiroRepository>();
 builder.Services.AddScoped<IPrisioneiroService, PrisioneiroService>();
 builder.Services.AddAutoMapper(typeof(PrisioneiroService).Assembly);
 
+builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+builder.Services.AddScoped<IFuncionarioService, FuncionarioService>();
+builder.Services.AddAutoMapper(typeof(FuncionarioService).Assembly);
+
 builder.Services.AddScoped<IDiaDeTrabalhoRepository, DiaDeTrabalhoRepository>();
 builder.Services.AddScoped<IDiaDeTrabalhoService, DiaDeTrabalhoService>();
 builder.Services.AddAutoMapper(typeof(DiaDeTrabalhoService).Assembly);

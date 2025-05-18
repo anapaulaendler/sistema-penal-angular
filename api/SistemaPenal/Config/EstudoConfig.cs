@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SistemaPenal.Entities;
 
-namespace SistemaPenal.Configurations;
+namespace SistemaPenal.Config;
 
 internal class EstudoConfiguration : IEntityTypeConfiguration<Estudo>
 {

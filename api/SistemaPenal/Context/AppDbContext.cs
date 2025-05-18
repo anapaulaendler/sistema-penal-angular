@@ -5,8 +5,10 @@ namespace SistemaPenal.Context;
 
 public class AppDbContext : DbContext
 {
-    public required DbSet<DiaDeTrabalho> DiaDeTrabalho { get; set; }
-    public required DbSet<DiaDeTrabalho> DiaDeEstudo { get; set; }
+    public required DbSet<Prisioneiro> Prisioneiros { get; set; }
+    public required DbSet<Funcionario> Funcionarios { get; set; }
+    public required DbSet<DiaDeTrabalho> DiasDeTrabalho { get; set; }
+    public required DbSet<Estudo> Estudos { get; set; }
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
