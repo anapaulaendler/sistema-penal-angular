@@ -1,4 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SistemaPenal.Context;
 using SistemaPenal.Interfaces;
 using SistemaPenal.Interfaces.Repositories.Entities;
@@ -9,12 +12,6 @@ using SistemaPenal.Services.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
-
-// ana: as ABSTRATAS (Pessoa, Atividade) não precisam disso aqui embaixo!
-// MODELO:
-// builder.Services.AddScoped<IEntidadeRepository, EntidadeRepository>();
-// builder.Services.AddScoped<IEntidadeService, EntidadeService>();
-// builder.Services.AddAutoMapper(typeof(EntidadeService).Assembly);
 
 builder.Services.AddScoped<IPrisioneiroRepository, PrisioneiroRepository>();
 builder.Services.AddScoped<IPrisioneiroService, PrisioneiroService>();
@@ -43,6 +40,25 @@ builder.Services.AddSwaggerGen();
 var conectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
 builder.Services.AddDbContext<AppDbContext>(x => x.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
 
+var chaveJwt = builder.Configuration["JwtSettings:SecretKey"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+						ClockSkew = TimeSpan.Zero,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(chaveJwt!))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -52,6 +68,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -24,3 +24,9 @@ public class FuncionarioUpdateDTO : PessoaUpdateDTO
     public Role Papel { get; set; }
     public required string Senha { get; set; }
 }
+
+public class FuncionarioLoginDTO
+{
+    public required string Email { get; set; }
+    public required string Senha { get; set; }
+}

@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public required DbSet<Funcionario> Funcionarios { get; set; }
     public required DbSet<DiaDeTrabalho> DiasDeTrabalho { get; set; }
     public required DbSet<Estudo> Estudos { get; set; }
+    public required DbSet<Livro> Livros { get; set; }
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
