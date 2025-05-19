@@ -9,7 +9,7 @@ public class PrisioneiroDTO : PessoaDTO
     public int ContadorDeLivros { get; set; }
     public int AnoAtual { get; set; }
 
-    // public List<LivroDTO> Livros { get; set; } = [];
+    public List<LivroDTO> Livros { get; set; } = [];
     public List<EstudoDTO> Estudos { get; set; } = [];
     public List<DiaDeTrabalhoDTO> DiasDeTrabalho { get; set; } = [];
 }

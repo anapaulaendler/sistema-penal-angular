@@ -21,7 +21,7 @@ internal class PrisioneiroConfiguration : IEntityTypeConfiguration<Prisioneiro>
         builder.Property(x => x.ContadorDeLivros).HasColumnName("ContadorDeLivros").IsRequired();
         builder.Property(x => x.AnoAtual).HasColumnName("AnoAtual").IsRequired();
 
-        // builder.HasMany(x => x.Livros).WithOne(x => x.Prisioneiro).IsRequired();
+        builder.HasMany(x => x.Livros).WithOne(x => x.Prisioneiro).IsRequired();
         builder.HasMany(x => x.Estudos).WithOne(x => x.Prisioneiro).IsRequired();
         builder.HasMany(x => x.DiasDeTrabalho).WithOne(x => x.Prisioneiro).IsRequired();
     }

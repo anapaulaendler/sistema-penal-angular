@@ -32,6 +32,10 @@ builder.Services.AddScoped<IEstudoRepository, EstudoRepository>();
 builder.Services.AddScoped<IEstudoService, EstudoService>();
 builder.Services.AddAutoMapper(typeof(EstudoService).Assembly);
 
+builder.Services.AddScoped<ILivroRepository, LivroRepository>();
+builder.Services.AddScoped<ILivroService, LivroService>();
+builder.Services.AddAutoMapper(typeof(LivroService).Assembly);
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();

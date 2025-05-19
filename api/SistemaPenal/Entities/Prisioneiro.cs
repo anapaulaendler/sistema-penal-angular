@@ -11,7 +11,7 @@ public class Prisioneiro : Pessoa
     public int ContadorDeLivros { get; set; }
     public int AnoAtual { get; set; }
 
-    // public List<Livro> Livros { get; set; } = [];
+    public List<Livro> Livros { get; set; } = [];
     public List<Estudo> Estudos { get; set; } = [];
     public List<DiaDeTrabalho> DiasDeTrabalho { get; set; } = [];
 }
