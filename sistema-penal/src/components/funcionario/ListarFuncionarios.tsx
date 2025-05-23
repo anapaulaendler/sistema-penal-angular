@@ -1,7 +1,11 @@
 import React from "react";
 
 const ListarFuncionarios = () => {
-  return <div>ListarFuncionarios</div>;
+  async function getFuncionarios() {
+    const resposta = await fetch("");
+  }
+
+  return <div></div>;
 };
 
 export default ListarFuncionarios;

@@ -1,7 +1,9 @@
 import React from "react";
 
 const CadastrarFuncionario = () => {
-  return <div>CadastrarFuncionario</div>;
+  return <form>
+    
+  </form>;
 };
 
 export default CadastrarFuncionario;
