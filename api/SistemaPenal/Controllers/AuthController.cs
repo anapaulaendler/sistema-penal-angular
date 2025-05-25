@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPenal.DTOs;
 using SistemaPenal.Interfaces.Services.Entities;
@@ -14,6 +15,7 @@ public class AuthController : ControllerBase
         _funcionarioService = funcionarioService;
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public IActionResult Login([FromBody] FuncionarioLoginDTO funcionarioLoginDTO)
     {

@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPenal.DTOs;
 using SistemaPenal.Interfaces.Services.Entities;
 
 namespace SistemaPenal.Controllers;
 
+[Authorize(Roles = "Admin")]
 [ApiController]
 [Route("funcionarios")]
 public class FuncionarioController : ControllerBase

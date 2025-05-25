@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using SistemaPenal.Enums;
 
 namespace SistemaPenal.DTOs;

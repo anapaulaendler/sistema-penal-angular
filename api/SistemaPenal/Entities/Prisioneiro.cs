@@ -4,7 +4,6 @@ namespace SistemaPenal.Entities;
 
 public class Prisioneiro : Pessoa
 {
-    public required string DescricaoSentenca { get; set; }
     public DateTime DiaDeChegada { get; set; }
     public DateTime DiaDeSaidaOriginal { get; set; }
     public DateTime DiaDeSaidaAtualizado { get; set; }

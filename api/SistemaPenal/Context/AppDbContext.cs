@@ -5,11 +5,11 @@ namespace SistemaPenal.Context;
 
 public class AppDbContext : DbContext
 {
-    public required DbSet<Prisioneiro> Prisioneiros { get; set; }
-    public required DbSet<Funcionario> Funcionarios { get; set; }
-    public required DbSet<DiaDeTrabalho> DiasDeTrabalho { get; set; }
-    public required DbSet<Estudo> Estudos { get; set; }
-    public required DbSet<Livro> Livros { get; set; }
+    public DbSet<Prisioneiro> Prisioneiros { get; set; } = null!;
+    public DbSet<Funcionario> Funcionarios { get; set; } = null!;
+    public DbSet<DiaDeTrabalho> DiasDeTrabalho { get; set; } = null!;
+    public DbSet<Estudo> Estudos { get; set; } = null!;
+    public DbSet<Livro> Livros { get; set; } = null!;
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }

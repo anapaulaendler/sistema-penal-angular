@@ -2,7 +2,6 @@ namespace SistemaPenal.DTOs;
 
 public class PrisioneiroDTO : PessoaDTO
 {
-    public required string DescricaoSentenca { get; set; }
     public DateTime DiaDeChegada { get; set; }
     public DateTime DiaDeSaidaOriginal { get; set; }
     public DateTime DiaDeSaidaAtualizado { get; set; }
@@ -16,7 +15,6 @@ public class PrisioneiroDTO : PessoaDTO
 
 public class PrisioneiroOnlyDTO : PessoaDTO
 {
-    public required string DescricaoSentenca { get; set; }
     public DateTime DiaDeChegada { get; set; }
     public DateTime DiaDeSaidaOriginal { get; set; }
     public DateTime DiaDeSaidaAtualizado { get; set; }

@@ -14,7 +14,7 @@ internal class PrisioneiroConfiguration : IEntityTypeConfiguration<Prisioneiro>
 
         builder.Property(x => x.Nome).HasColumnName("Nome").HasMaxLength(100).IsRequired();
         builder.Property(x => x.DataNascimento).HasColumnName("DataNascimento").IsRequired();
-        builder.Property(x => x.Cpf).HasColumnName("CPF").HasMaxLength(11).IsFixedLength().IsRequired();
+        builder.Property(x => x.Cpf).HasColumnName("CPF").IsRequired();
         builder.Property(x => x.DiaDeChegada).HasColumnName("DiaDeChegada").IsRequired();
         builder.Property(x => x.DiaDeSaidaOriginal).HasColumnName("DiaDeSaidaOriginal").IsRequired();
         builder.Property(x => x.DiaDeSaidaAtualizado).HasColumnName("DiaDeSaidaAtualizado").IsRequired();

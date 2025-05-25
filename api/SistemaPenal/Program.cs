@@ -7,6 +7,7 @@ using SistemaPenal.Interfaces;
 using SistemaPenal.Interfaces.Repositories.Entities;
 using SistemaPenal.Interfaces.Services.Entities;
 using SistemaPenal.Repositories.Entities;
+using SistemaPenal.Seed;
 using SistemaPenal.Services.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +61,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
