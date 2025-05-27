@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using AutoMapper;
 using SistemaPenal.DTOs;
 using SistemaPenal.Entities.Abstractions;
@@ -83,7 +84,9 @@ where TEntity : Pessoa where TDTO : PessoaDTO where TCreateDTO : PessoaCreateDTO
         if (string.IsNullOrWhiteSpace(cpf))
             throw new ArgumentException("Invalid CPF.");
         
-        var entity = await _repository.GetPessoaByCpfAsync(cpf, cancellation);
+        string formatted = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
+        
+        var entity = await _repository.GetPessoaByCpfAsync(formatted, cancellation);
         var entityDTO = _mapper.Map<TDTO>(entity);
         return entityDTO;
     }

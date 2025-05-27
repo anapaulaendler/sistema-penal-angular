@@ -7,7 +7,7 @@ namespace SistemaPenal.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ApiController]
-[Route("diasDeTrabalho")]
+[Route("dias-de-trabalho")]
 public class DiaDeTrabalhoController : ControllerBase
 {
     private readonly ILogger<DiaDeTrabalhoController> _logger;

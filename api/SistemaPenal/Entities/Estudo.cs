@@ -4,5 +4,5 @@ namespace SistemaPenal.Entities;
 
 public class Estudo : Atividade
 {
-   public required string Materia { get; set; }
+   public string? Materia { get; set; }
 }

@@ -14,7 +14,7 @@ internal class EstudoConfiguration : IEntityTypeConfiguration<Estudo>
         builder.Property(x => x.PrisioneiroId).IsRequired();
 
         builder.Property(x => x.Data).HasColumnName("Data").IsRequired();
-        builder.Property(x => x.Materia).HasColumnName("Materia").IsRequired();
+        builder.Property(x => x.Materia).HasColumnName("Materia").IsRequired(false);
         
         builder.HasOne(x => x.Prisioneiro).WithMany(x => x.Estudos).IsRequired();
     }

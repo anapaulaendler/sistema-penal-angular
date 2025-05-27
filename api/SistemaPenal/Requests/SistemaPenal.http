@@ -1,6 +1,17 @@
 @SistemaPenal_HostAddress = http://localhost:5034
 
-GET {{SistemaPenal_HostAddress}}/weatherforecast/
-Accept: application/json
+### AUTENTICAÇÃO
+POST {{SistemaPenal_HostAddress}}/auth/login
+Content-Type: application/json
 
-###
+{
+    "Email": "admin@sistemapenal.com",
+    "Senha": "admin123"
+}
+
+### GET PRISIONEIRO CPF
+GET {{SistemaPenal_HostAddress}}/prisioneiros/cpf/12345678900
+Host: localhost:5034
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5Ac2lzdGVtYXBlbmFsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzQ4MzEyNTQ4fQ.6L79zjvMXze5pAz_KkxqK-tBeKAG3QVv8_2CuvcrsO4
+
+### ANA: SE TIVER TESTANDO ONLY BACK, TROQUE O TOKEN DE CIMA PELO SEU!
