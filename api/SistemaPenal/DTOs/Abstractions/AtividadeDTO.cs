@@ -14,5 +14,5 @@ public abstract class AtividadeCreateDTO : IDTO
     public DateTime Data { get; set; } = DateTime.Today;
     public Guid PrisioneiroId { get; set; }
 
-    public Prisioneiro Prisioneiro { get; set; }
+    public Prisioneiro? Prisioneiro { get; set; }
 }

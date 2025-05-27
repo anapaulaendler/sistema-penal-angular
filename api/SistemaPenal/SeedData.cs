@@ -28,7 +28,8 @@ namespace SistemaPenal.Seed
                         ContadorDeLivros = 5,
                         AnoAtual = DateTime.Now.Year,
                         DiaDeChegada = DateTime.Now.AddMonths(-8),
-                        DiaDeSaidaOriginal = DateTime.Now.AddYears(2)
+                        DiaDeSaidaOriginal = DateTime.Now.AddYears(2),
+                        DiaDeSaidaAtualizado = DateTime.Now.AddYears(2)
                     },
                     new Prisioneiro
                     {
@@ -39,7 +40,8 @@ namespace SistemaPenal.Seed
                         ContadorDeLivros = 2,
                         AnoAtual = DateTime.Now.Year,
                         DiaDeChegada = DateTime.Now.AddMonths(-3),
-                        DiaDeSaidaOriginal = DateTime.Now.AddYears(1).AddMonths(6)
+                        DiaDeSaidaOriginal = DateTime.Now.AddYears(1).AddMonths(6),
+                        DiaDeSaidaAtualizado = DateTime.Now.AddYears(1).AddMonths(6)
                     }
                 );
             }
