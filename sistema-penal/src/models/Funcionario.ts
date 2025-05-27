@@ -7,15 +7,15 @@ export class Funcionario extends Pessoa {
   senha: string;
 
   constructor(
-    id: string,
     nome: string,
     dataNascimento: Date,
     cpf: string,
     email: string,
     papel: Role,
     senha: string,
+    id?: string,
   ) {
-    super(id, nome, dataNascimento, cpf);
+    super(nome, dataNascimento, cpf, id);
     this.email = email;
     this.papel = papel;
     this.senha = senha;
