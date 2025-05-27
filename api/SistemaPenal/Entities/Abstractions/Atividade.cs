@@ -8,5 +8,5 @@ public abstract class Atividade : IEntity
     public DateTime Data { get; set; }
     public Guid PrisioneiroId { get; set; }
 
-    public Prisioneiro Prisioneiro { get; set; } = null!;
+    public Prisioneiro? Prisioneiro { get; set; }
 }

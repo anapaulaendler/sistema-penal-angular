@@ -26,6 +26,7 @@ public class PrisioneiroCreateDTO : PessoaCreateDTO
     public int AnoAtual { get; set; } = DateTime.Now.Year;
     public DateTime DiaDeChegada { get; set; }
     public DateTime DiaDeSaidaOriginal { get; set; }
+    public DateTime DiaDeSaidaAtualizado { get; set; }
 }
 
 public class PrisioneiroUpdateDTO : PessoaUpdateDTO

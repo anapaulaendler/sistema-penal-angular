@@ -1,35 +1,40 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../api";
 
 type TipoAtividade = "dias-de-trabalho" | "estudos" | "livros";
 
 function AddAtividade() {
   const [prisioneiroId, setPrisioneiroId] = useState<string>("");
-  const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>("dias-de-trabalho");
-  const [descricao, setDescricao] = useState<string>(""); // ana: pra dia de trabalho
+  const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>();
+  const [descricao, setDescricao] = useState<string>(""); // ana: pra dia de trabalhoa
   const [isbn, setIsbn] = useState<string>(""); // ana: pra livro
   const [materia, setMateria] = useState<string>(""); // ana: pra estudo
   const [resposta, setResposta] = useState("");
   const [respostaClasse, setRespostaClasse] = useState("");
+  const [cpf, setCpf] = useState<string>("");
 
-  const handleCpfChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cpf = e.target.value;
+  const handleBuscarCpf = async () => {
+    if (cpf.length !== 11) {
+      setResposta("Por favor, insira um CPF com 11 dígitos.");
+      setRespostaClasse("resposta-erro");
+      return;
+    }
 
     try {
-      const res = await axios.get(`http://localhost:5034/prisioneiros/cpf/${cpf}`);
+      const res = await api.get(`/prisioneiros/cpf/${cpf}`);
       const prisioneiro = res.data;
 
-      if (!prisioneiro || !prisioneiro.prisioneiroId) {
+      if (!prisioneiro || !prisioneiro.id) {
         setResposta("Prisioneiro não encontrado");
         setRespostaClasse("resposta-erro");
         return;
       }
 
-      setPrisioneiroId(prisioneiro.prisioneiroId);
+      setPrisioneiroId(prisioneiro.id);
       setResposta("Prisioneiro encontrado");
       setRespostaClasse("resposta-sucesso");
-    } catch {
-      setResposta("Prisioneiro não encontrado");
+    } catch (err) {
+      setResposta("Erro ao conectar com o servidor.");
       setRespostaClasse("resposta-erro");
     }
   };
@@ -37,11 +42,8 @@ function AddAtividade() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const baseUrl = `http://localhost:5034/${tipoAtividade}`;
-
     const atividadeBase = {
-      prisioneiroId,
-      data: new Date().toISOString()
+      prisioneiroId
     };
 
     // ana: adiciona coisinhas especificas baseado no tipo de atividade
@@ -58,7 +60,7 @@ function AddAtividade() {
     }
 
     try {
-      const res = await axios.post(baseUrl, payload);
+      const res = await api.post(`/${tipoAtividade}`, payload);
 
       if (res.status === 200) {
         alert("Atividade adicionada com sucesso!");
@@ -75,11 +77,19 @@ function AddAtividade() {
       <div id="form">
         <h1>Cadastrar Atividade a Prisioneiro</h1>
         <form onSubmit={handleSubmit}>
-          <label>
-            CPF do Prisioneiro (apenas números):
-            <input type="text" onChange={handleCpfChange} required />
-            <div className={respostaClasse}>{resposta}</div>
-          </label>
+        <label>
+          CPF do Prisioneiro (apenas números):
+          <input
+            type="text"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            required
+          />
+        </label>
+        <button type="button" onClick={handleBuscarCpf}>
+          Buscar Prisioneiro
+        </button>
+        <div className={respostaClasse}>{resposta}</div>
 
           {/* ana: aqui as partes específicas! :> */}
           <label>

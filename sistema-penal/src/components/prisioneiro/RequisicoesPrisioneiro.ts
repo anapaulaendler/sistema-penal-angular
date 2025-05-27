@@ -1,20 +1,14 @@
+import api from "../../api";
 import { Prisioneiro } from "../../models/Prisioneiro";
-import baseURL, { headers } from "../../util/Api";
 import { prisioneiroDTO } from "../../util/DTOs";
 import { mapPrisioneiro } from "../../util/Mappers";
 
 export async function CreatePrisioneiroAsync(prisioneiro: Prisioneiro) {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(prisioneiro),
-    });
-    if (!resposta.ok)
-      throw new Error(`Erro ao criar prisioneiro: ${resposta.statusText}`);
-    const dados = await resposta.json();
-    return console.log("Prisioneiro criado com sucesso:", dados);
-  } catch (error) {
+    const resposta = await api.post("/prisioneiros", prisioneiro);
+    console.log("Prisioneiro criado com sucesso:", resposta.data);
+    return resposta.data;
+  } catch (error: any) {
     console.error("Erro ao criar prisioneiro:", error);
     throw error;
   }
@@ -24,20 +18,10 @@ export async function GetPrisioneiroByIdAsync(
   prisioneiroId: string,
 ): Promise<Prisioneiro> {
   try {
-    const resposta = await fetch(
-      `${baseURL}/prisioneiros/id/${prisioneiroId}`,
-      {
-        headers: headers,
-      },
-    );
-    if (!resposta.ok)
-      throw new Error(`Erro ao buscar prisioneiro: ${resposta.statusText}`);
-
-    const dados = await resposta.json();
-    const prisioneiro: Prisioneiro = prisioneiroDTO(dados);
-
+    const resposta = await api.get(`/prisioneiros/id/${prisioneiroId}`);
+    const prisioneiro: Prisioneiro = prisioneiroDTO(resposta.data);
     return prisioneiro;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erro ao buscar prisioneiro:", error);
     throw error;
   }
@@ -47,17 +31,10 @@ export async function GetPrisioneiroByCpfAsync(
   cpf: string,
 ): Promise<Prisioneiro> {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros/cpf/${cpf}`, {
-      headers: headers,
-    });
-    if (!resposta.ok)
-      throw new Error(`Erro ao buscar prisioneiro: ${resposta.statusText}`);
-
-    const dados = await resposta.json();
-    const prisioneiro: Prisioneiro = prisioneiroDTO(dados);
-
+    const resposta = await api.get(`/prisioneiros/cpf/${cpf}`);
+    const prisioneiro: Prisioneiro = prisioneiroDTO(resposta.data);
     return prisioneiro;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erro ao buscar prisioneiro:", error);
     throw error;
   }
@@ -68,17 +45,13 @@ export async function UpdatePrisioneiroAsync(
   prisioneiro: Prisioneiro,
 ) {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros/${prisioneiroId}`, {
-      method: "PUT",
-      headers: headers,
-      body: JSON.stringify(prisioneiro),
-    });
-    if (!resposta.ok)
-      throw new Error(`Erro ao atualizar prisioneiro: ${resposta.statusText}`);
-
-    const dados = await resposta.json();
-    return console.log("Prisioneiro atualizado com sucesso:", dados);
-  } catch (error) {
+    const resposta = await api.put(
+      `/prisioneiros/${prisioneiroId}`,
+      prisioneiro,
+    );
+    console.log("Prisioneiro atualizado com sucesso:", resposta.data);
+    return resposta.data;
+  } catch (error: any) {
     console.error("Erro ao atualizar prisioneiro:", error);
     throw error;
   }
@@ -86,20 +59,13 @@ export async function UpdatePrisioneiroAsync(
 
 export async function DeletePrisioneiroAsync(id: string) {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros/${id}`, {
-      method: "DELETE",
-      headers: headers,
-    });
-    if (!resposta.ok)
-      throw new Error(`Erro ao deletar prisioneiro: ${resposta.statusText}`);
-
-    const dados = await resposta.json();
-
-    return console.log(
-      `Prisioneiro ${dados.nome} deletado com sucesso!`,
-      dados,
+    const resposta = await api.delete(`/prisioneiros/${id}`);
+    console.log(
+      `Prisioneiro ${resposta.data.nome} deletado com sucesso!`,
+      resposta.data,
     );
-  } catch (error) {
+    return resposta.data;
+  } catch (error: any) {
     console.error("Erro ao deletar prisioneiro:", error);
     throw error;
   }
@@ -107,17 +73,10 @@ export async function DeletePrisioneiroAsync(id: string) {
 
 export async function GetPrisioneirosAsync(): Promise<Prisioneiro[]> {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros`, {
-      headers: headers,
-    });
-    if (!resposta.ok)
-      throw new Error(`Erro ao buscar prisioneiros: ${resposta.statusText}`);
-
-    const dados = await resposta.json();
-    const prisioneiros: Prisioneiro[] = mapPrisioneiro(dados);
-
+    const resposta = await api.get("/prisioneiros");
+    const prisioneiros: Prisioneiro[] = mapPrisioneiro(resposta.data);
     return prisioneiros;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erro ao buscar prisioneiros:", error);
     throw error;
   }

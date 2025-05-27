@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPenal.DTOs;
@@ -17,9 +18,9 @@ public class AuthController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public IActionResult Login([FromBody] FuncionarioLoginDTO funcionarioLoginDTO)
+    public async Task<IActionResult> Login([FromBody] FuncionarioLoginDTO funcionarioLoginDTO)
     {
-        var token = _funcionarioService.LoginAsync(funcionarioLoginDTO);
+        var token = await _funcionarioService.LoginAsync(funcionarioLoginDTO);
         return Ok(new { token });
     }
 }
