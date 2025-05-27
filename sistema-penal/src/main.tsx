@@ -2,16 +2,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./css/index.css";
 import App from "./App";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"; // corrige aqui também
 import ListarFuncionarios from "./components/funcionario/ListarFuncionarios";
 import EditarFuncionario from "./components/funcionario/EditarFuncionario";
 import ListarPrisioneiros from "./components/prisioneiro/ListarPrisioneiros";
-import EditarPrisioneiro from "./components/prisioneiro/EditarPrisioneiro";
 import CadastrarFuncionario from "./components/funcionario/CadastrarFuncionario";
-import CadastrarPrisioneiro from "./components/prisioneiro/CadastrarPrisioneiro";
-import Listar from "./pages/Listar";
-import Cadastrar from "./pages/Cadastrar";
 import Login from "./components/funcionario/Login";
+import Home from "./pages/Home";
+import DetalharPrisioneiro from "./components/prisioneiro/DetalharPrisioneiro";
+import CadastrarPrisioneiro from "./components/prisioneiro/CadastrarPrisioneiro";
 
 const router = createBrowserRouter([
   {
@@ -19,19 +18,19 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Login />,
       },
       {
-        path: "/listar",
-        element: <Listar />,
+        path: "listar",
+        element: <Home />,
         children: [
           {
-            path: "/listar/funcionario",
+            path: "funcionario",
             element: <ListarFuncionarios />,
             children: [
               {
-                path: "/listar/funcionario/editar/:cpf",
+                path: "editar/:cpf",
                 element: <EditarFuncionario />,
               },
             ],
@@ -41,23 +40,23 @@ const router = createBrowserRouter([
             element: <ListarPrisioneiros />,
             children: [
               {
-                path: "/listar/prisioneiro/editar/:cpf",
-                element: <EditarPrisioneiro />,
+                path: "detalhar/:id",
+                element: <DetalharPrisioneiro />,
               },
             ],
           },
         ],
       },
       {
-        path: "/cadastrar",
-        element: <Cadastrar />,
+        path: "cadastrar",
+        element: <Home />,
         children: [
           {
-            path: "/cadastrar/funcionario",
+            path: "funcionario",
             element: <CadastrarFuncionario />,
           },
           {
-            path: "/cadastrar/prisioneiro",
+            path: "prisioneiro",
             element: <CadastrarPrisioneiro />,
           },
         ],

@@ -4,7 +4,7 @@ import { mapDiaDeTrabalho } from "../../util/Mappers";
 
 export async function CreateDiaDeTrabalhoAsync(diaDeTrabalho: DiaDeTrabalho) {
   try {
-    const resposta = await api.post("/diasDeTrabalho", diaDeTrabalho);
+    const resposta = await api.post("/dias-de-trabalho", diaDeTrabalho);
     console.log("Dia de trabalho criado com sucesso:", resposta.data);
     return resposta.data;
   } catch (error: any) {
@@ -17,7 +17,7 @@ export async function GetDiasDeTrabalhoByPrisioneiroIdAsync(
   prisioneiroId: string,
 ): Promise<DiaDeTrabalho[]> {
   try {
-    const resposta = await api.get(`/diasDeTrabalho/${prisioneiroId}`);
+    const resposta = await api.get(`/dias-de-trabalho/${prisioneiroId}`);
     const diasDeTrabalho: DiaDeTrabalho[] = mapDiaDeTrabalho(resposta.data);
     return diasDeTrabalho;
   } catch (error: any) {
@@ -28,7 +28,7 @@ export async function GetDiasDeTrabalhoByPrisioneiroIdAsync(
 
 export async function GetDiasDeTrabalhoAsync(): Promise<DiaDeTrabalho[]> {
   try {
-    const resposta = await api.get("/diasDeTrabalho");
+    const resposta = await api.get("/dias-de-trabalho");
     const diasDeTrabalho: DiaDeTrabalho[] = mapDiaDeTrabalho(resposta.data);
     return diasDeTrabalho;
   } catch (error: any) {

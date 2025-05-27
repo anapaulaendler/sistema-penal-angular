@@ -40,15 +40,9 @@ export async function GetPrisioneiroByCpfAsync(
   }
 }
 
-export async function UpdatePrisioneiroAsync(
-  prisioneiroId: string,
-  prisioneiro: Prisioneiro,
-) {
+export async function UpdatePrisioneiroAsync(prisioneiro: Prisioneiro) {
   try {
-    const resposta = await api.put(
-      `/prisioneiros/${prisioneiroId}`,
-      prisioneiro,
-    );
+    const resposta = await api.put("/prisioneiros", prisioneiro);
     console.log("Prisioneiro atualizado com sucesso:", resposta.data);
     return resposta.data;
   } catch (error: any) {

@@ -201,3 +201,56 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
+
+.detalhes-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.campo {
+  margin-bottom: 10px;
+}
+
+.input-edicao {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.botao,
+.botao-voltar {
+  padding: 5px 10px;
+  margin-top: 5px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.botao:hover,
+.botao-voltar:hover {
+  background-color: #125aa0;
+}
+
+.atividade {
+  margin-top: 20px;
+}
+
+.tabela-atividade {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabela-atividade th,
+.tabela-atividade td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-atividade th {
+  background-color: #f0f0f0;
+}
