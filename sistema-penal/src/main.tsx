@@ -11,12 +11,17 @@ import CadastrarFuncionario from "./components/funcionario/CadastrarFuncionario"
 import CadastrarPrisioneiro from "./components/prisioneiro/CadastrarPrisioneiro";
 import Listar from "./pages/Listar";
 import Cadastrar from "./pages/Cadastrar";
+import Login from "./components/funcionario/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Login />,
+      },
       {
         path: "/listar",
         element: <Listar />,
