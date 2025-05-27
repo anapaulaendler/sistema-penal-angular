@@ -1,14 +1,12 @@
 import { DiaDeTrabalho } from "../../models/DiaDeTrabalho";
-import baseURL from "../../util/Api";
+import baseURL, { headers } from "../../util/Api";
 import { mapDiaDeTrabalho } from "../../util/Mappers";
 
 export async function CreateDiaDeTrabalhoAsync(diaDeTrabalho: DiaDeTrabalho) {
   try {
     const resposta = await fetch(`${baseURL}/diasDeTrabalho`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(diaDeTrabalho),
     });
     if (!resposta.ok)
@@ -26,7 +24,9 @@ export async function GetDiasDeTrabalhoByPrisioneiroIdAsync(
   prisioneiroId: string,
 ): Promise<DiaDeTrabalho[]> {
   try {
-    const resposta = await fetch(`${baseURL}/diasDeTrabalho/${prisioneiroId}`);
+    const resposta = await fetch(`${baseURL}/diasDeTrabalho/${prisioneiroId}`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(
         `Erro ao buscar dias de trabalho: ${resposta.statusText}`,
@@ -44,7 +44,9 @@ export async function GetDiasDeTrabalhoByPrisioneiroIdAsync(
 
 export async function GetDiasDeTrabalhoAsync(): Promise<DiaDeTrabalho[]> {
   try {
-    const resposta = await fetch(`${baseURL}/diasDeTrabalho`);
+    const resposta = await fetch(`${baseURL}/diasDeTrabalho`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(
         `Erro ao buscar dias de trabalho: ${resposta.statusText}`,

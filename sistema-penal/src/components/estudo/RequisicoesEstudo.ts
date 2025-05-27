@@ -1,14 +1,12 @@
 import { Estudo } from "../../models/Estudo";
-import baseURL from "../../util/Api";
+import baseURL, { headers } from "../../util/Api";
 import { mapEstudo } from "../../util/Mappers";
 
 export async function CreateEstudoAsync(estudo: Estudo) {
   try {
     const resposta = await fetch(`${baseURL}/estudos`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(estudo),
     });
     if (!resposta.ok)
@@ -26,7 +24,9 @@ export async function GetEstudosByPrisioneiroIdAsync(
   prisioneiroId: string,
 ): Promise<Estudo[]> {
   try {
-    const resposta = await fetch(`${baseURL}/estudos/${prisioneiroId}`);
+    const resposta = await fetch(`${baseURL}/estudos/${prisioneiroId}`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar estudos: ${resposta.statusText}`);
 
@@ -42,7 +42,9 @@ export async function GetEstudosByPrisioneiroIdAsync(
 
 export async function GetEstudosAsync(): Promise<Estudo[]> {
   try {
-    const resposta = await fetch(`${baseURL}/estudos`);
+    const resposta = await fetch(`${baseURL}/estudos`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar estudos: ${resposta.statusText}`);
 

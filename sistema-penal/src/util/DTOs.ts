@@ -5,21 +5,20 @@ import { mapDiaDeTrabalho, mapEstudo, mapLivro } from "./Mappers";
 
 export function funcionarioDTO(dados: any): Funcionario {
   return new Funcionario(
-    dados.idados,
     dados.nome,
     new Date(dados.dataNascimento),
     dados.cpf,
     dados.email,
     dados.papel as Role,
     dados.senha,
+    dados.id ?? undefined,
   );
 }
 
 export function prisioneiroDTO(dados: any): Prisioneiro {
   return new Prisioneiro(
-    dados.id,
     dados.nome,
-    dados.dataNascimento,
+    new Date(dados.dataNascimento),
     dados.cpf,
     dados.descricaoSentenca,
     new Date(dados.diaDeChegada),
@@ -30,5 +29,6 @@ export function prisioneiroDTO(dados: any): Prisioneiro {
     mapLivro(dados.livros),
     mapEstudo(dados.estudos),
     mapDiaDeTrabalho(dados.diasDeTrabalho),
+    dados.id ?? undefined,
   );
 }

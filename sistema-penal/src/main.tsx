@@ -9,6 +9,8 @@ import ListarPrisioneiros from "./components/prisioneiro/ListarPrisioneiros";
 import EditarPrisioneiro from "./components/prisioneiro/EditarPrisioneiro";
 import CadastrarFuncionario from "./components/funcionario/CadastrarFuncionario";
 import CadastrarPrisioneiro from "./components/prisioneiro/CadastrarPrisioneiro";
+import Listar from "./pages/Listar";
+import Cadastrar from "./pages/Cadastrar";
 
 const router = createBrowserRouter([
   {
@@ -16,24 +18,25 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "listar",
+        path: "/listar",
+        element: <Listar />,
         children: [
           {
-            path: "listar/funcionario",
+            path: "/listar/funcionario",
             element: <ListarFuncionarios />,
             children: [
               {
-                path: "listar/funcionario/editar/:cpf",
+                path: "/listar/funcionario/editar/:cpf",
                 element: <EditarFuncionario />,
               },
             ],
           },
           {
-            path: "listar/prisioneiro",
+            path: "/listar/prisioneiro",
             element: <ListarPrisioneiros />,
             children: [
               {
-                path: "listar/prisioneiro/editar/:cpf",
+                path: "/listar/prisioneiro/editar/:cpf",
                 element: <EditarPrisioneiro />,
               },
             ],
@@ -41,14 +44,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "cadastrar",
+        path: "/cadastrar",
+        element: <Cadastrar />,
         children: [
           {
-            path: "cadastrar/funcionario",
+            path: "/cadastrar/funcionario",
             element: <CadastrarFuncionario />,
           },
           {
-            path: "cadastrar/prisioneiro",
+            path: "/cadastrar/prisioneiro",
             element: <CadastrarPrisioneiro />,
           },
         ],

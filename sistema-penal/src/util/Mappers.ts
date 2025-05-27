@@ -31,34 +31,44 @@ export function mapEstudo(dados: any[]): Estudo[] {
   );
 }
 
-export function mapLivro(dados: any): Livro[] {
+export function mapLivro(dados: any[]): Livro[] {
   return dados.map(
-    (d: any) => new Livro(d.id, d.data, d.prisioneiroId, d.prisioneiro, d.Isbn),
+    (d: any) =>
+      new Livro(d.id, new Date(d.data), d.prisioneiroId, d.prisioneiro, d.Isbn),
   );
 }
 
 export function mapFuncionario(dados: any): Funcionario[] {
-  return dados.map(
-    (d: any) =>
-      new Funcionario(
-        d.id,
-        d.nome,
-        new Date(d.dataNascimento),
-        d.cpf,
-        d.email,
-        d.papel as Role,
-        d.senha,
-      ),
-  );
+  return dados.map((d: any) => {
+    // Garante que papel seja convertido corretamente
+    const papelMap = {
+      0: "Admin",
+      1: "General",
+      Admin: "Admin",
+      General: "General",
+    };
+
+    const papelConvertido =
+      papelMap[d.papel as keyof typeof papelMap] ?? d.papel;
+
+    return new Funcionario(
+      d.nome,
+      new Date(d.dataNascimento),
+      d.cpf,
+      d.email,
+      papelConvertido as Role,
+      d.senha,
+      d.id ?? undefined,
+    );
+  });
 }
 
 export function mapPrisioneiro(dados: any): Prisioneiro[] {
   return dados.map(
     (d: any) =>
       new Prisioneiro(
-        d.id,
         d.nome,
-        d.dataNascimento,
+        new Date(d.dataNascimento),
         d.cpf,
         d.descricaoSentenca,
         new Date(d.diaDeChegada),
@@ -66,9 +76,10 @@ export function mapPrisioneiro(dados: any): Prisioneiro[] {
         new Date(d.diaDeSaidaAtualizado),
         d.contadorDeLivros,
         d.anoAtual,
-        d.livros,
-        d.estudos,
-        d.diasDeTrabalho,
+        mapLivro(d.livros),
+        mapEstudo(d.estudos),
+        mapDiaDeTrabalho(d.diasDeTrabalho),
+        d.id ?? undefined,
       ),
   );
 }

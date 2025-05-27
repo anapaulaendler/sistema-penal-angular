@@ -15,7 +15,6 @@ export class Prisioneiro extends Pessoa {
   diasDeTrabalho: DiaDeTrabalho[];
 
   constructor(
-    id: string,
     nome: string,
     dataNascimento: Date,
     cpf: string,
@@ -28,8 +27,9 @@ export class Prisioneiro extends Pessoa {
     livros: Livro[],
     estudos: Estudo[],
     diasDeTrabalho: DiaDeTrabalho[],
+    id?: string,
   ) {
-    super(id, nome, dataNascimento, cpf);
+    super(nome, dataNascimento, cpf, id);
     this.descricaoSentenca = descricaoSentenca;
     this.diaDeChegada = diaDeChegada;
     this.diaDeSaidaOriginal = diaDeSaidaOriginal;

@@ -1,5 +1,5 @@
 import { Prisioneiro } from "../../models/Prisioneiro";
-import baseURL from "../../util/Api";
+import baseURL, { headers } from "../../util/Api";
 import { prisioneiroDTO } from "../../util/DTOs";
 import { mapPrisioneiro } from "../../util/Mappers";
 
@@ -7,9 +7,7 @@ export async function CreatePrisioneiroAsync(prisioneiro: Prisioneiro) {
   try {
     const resposta = await fetch(`${baseURL}/prisioneiros`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(prisioneiro),
     });
     if (!resposta.ok)
@@ -26,7 +24,12 @@ export async function GetPrisioneiroByIdAsync(
   prisioneiroId: string,
 ): Promise<Prisioneiro> {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros/id/${prisioneiroId}`);
+    const resposta = await fetch(
+      `${baseURL}/prisioneiros/id/${prisioneiroId}`,
+      {
+        headers: headers,
+      },
+    );
     if (!resposta.ok)
       throw new Error(`Erro ao buscar prisioneiro: ${resposta.statusText}`);
 
@@ -44,7 +47,9 @@ export async function GetPrisioneiroByCpfAsync(
   cpf: string,
 ): Promise<Prisioneiro> {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros/cpf/${cpf}`);
+    const resposta = await fetch(`${baseURL}/prisioneiros/cpf/${cpf}`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar prisioneiro: ${resposta.statusText}`);
 
@@ -58,33 +63,32 @@ export async function GetPrisioneiroByCpfAsync(
   }
 }
 
-// export async function UpdatePrisioneiroAsync(
-//   prisioneiroId: string,
-//   prisioneiro: Prisioneiro,
-// ) {
-//   try {
-//     const resposta = await fetch(`${baseURL}/prisioneiros/${prisioneiroId}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(prisioneiro),
-//     });
-//     if (!resposta.ok)
-//       throw new Error(`Erro ao atualizar prisioneiro: ${resposta.statusText}`);
+export async function UpdatePrisioneiroAsync(
+  prisioneiroId: string,
+  prisioneiro: Prisioneiro,
+) {
+  try {
+    const resposta = await fetch(`${baseURL}/prisioneiros/${prisioneiroId}`, {
+      method: "PUT",
+      headers: headers,
+      body: JSON.stringify(prisioneiro),
+    });
+    if (!resposta.ok)
+      throw new Error(`Erro ao atualizar prisioneiro: ${resposta.statusText}`);
 
-//     const dados = await resposta.json();
-//     return console.log("Prisioneiro atualizado com sucesso:", dados);
-//   } catch (error) {
-//     console.error("Erro ao atualizar prisioneiro:", error);
-//     throw error;
-//   }
-// }
+    const dados = await resposta.json();
+    return console.log("Prisioneiro atualizado com sucesso:", dados);
+  } catch (error) {
+    console.error("Erro ao atualizar prisioneiro:", error);
+    throw error;
+  }
+}
 
 export async function DeletePrisioneiroAsync(id: string) {
   try {
     const resposta = await fetch(`${baseURL}/prisioneiros/${id}`, {
       method: "DELETE",
+      headers: headers,
     });
     if (!resposta.ok)
       throw new Error(`Erro ao deletar prisioneiro: ${resposta.statusText}`);
@@ -103,7 +107,9 @@ export async function DeletePrisioneiroAsync(id: string) {
 
 export async function GetPrisioneirosAsync(): Promise<Prisioneiro[]> {
   try {
-    const resposta = await fetch(`${baseURL}/prisioneiros`);
+    const resposta = await fetch(`${baseURL}/prisioneiros`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar prisioneiros: ${resposta.statusText}`);
 

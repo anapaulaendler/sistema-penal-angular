@@ -1,14 +1,12 @@
 import { Livro } from "../../models/Livro";
-import baseURL from "../../util/Api";
+import baseURL, { headers } from "../../util/Api";
 import { mapLivro } from "../../util/Mappers";
 
 export async function CreateLivroAsync(livro: Livro) {
   try {
     const resposta = await fetch(`${baseURL}/livros`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(livro),
     });
     if (!resposta.ok)
@@ -26,7 +24,9 @@ export async function GetLivrosByPrisioneiroIdAsync(
   prisioneiroId: string,
 ): Promise<Livro[]> {
   try {
-    const resposta = await fetch(`${baseURL}/livros/${prisioneiroId}`);
+    const resposta = await fetch(`${baseURL}/livros/${prisioneiroId}`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar livros: ${resposta.statusText}`);
 
@@ -42,7 +42,9 @@ export async function GetLivrosByPrisioneiroIdAsync(
 
 export async function GetLivrosAsync() {
   try {
-    const resposta = await fetch(`${baseURL}/livros`);
+    const resposta = await fetch(`${baseURL}/livros`, {
+      headers: headers,
+    });
     if (!resposta.ok)
       throw new Error(`Erro ao buscar livros: ${resposta.statusText}`);
 

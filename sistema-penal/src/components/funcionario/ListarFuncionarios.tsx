@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 import type { Funcionario } from "../../models/Funcionario";
 import { DeleteFuncionario, GetFuncionarios } from "./RequisicoesFuncionario";
+import { formatDateToISO } from "../../util/FormatarData";
 
 const ListarFuncionarios = () => {
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
@@ -75,16 +76,19 @@ const ListarFuncionarios = () => {
                 </td>
               </tr>
             ) : (
-              funcionariosFiltrados.map((funcionario) => (
+              funcionariosFiltrados.map((funcionario: Funcionario) => (
                 <tr key={funcionario.id}>
                   <td>{funcionario.id}</td>
                   <td>{funcionario.nome}</td>
                   <td>{funcionario.cpf}</td>
                   <td>
-                    {new Date(funcionario.dataNascimento).toLocaleDateString()}
+                    {funcionario.dataNascimento
+                      ? formatDateToISO(funcionario.dataNascimento)
+                      : "Data não informada"}
                   </td>
                   <td>{funcionario.email}</td>
                   <td>{funcionario.papel}</td>
+
                   <td className="action-buttons">
                     <Link to={`/listar/funcionario/editar/${funcionario.id}`}>
                       <button className="edit-btn">Editar</button>
