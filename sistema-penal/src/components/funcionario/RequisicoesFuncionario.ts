@@ -60,24 +60,24 @@ export async function GetFuncionarioByCpf(cpf: string): Promise<Funcionario> {
   }
 }
 
-// export async function UpdateFuncionarioAsync(funcionario: Funcionario) {
-//   try {
-//     const resposta = await fetch(`${baseURL}/funcionarios`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(funcionario),
-//     });
-//     if (!resposta.ok)
-//       throw new Error(`Erro ao atualizar funcionario: ${resposta.statusText}`);
-//     const dados = await resposta.json();
-//     return console.log("Funcionario atualizado com sucesso:", dados);
-//   } catch (error) {
-//     console.error("Erro ao atualizar funcionario:", error);
-//     throw error;
-//   }
-// }
+export async function UpdateFuncionarioAsync(funcionario: Funcionario) {
+  try {
+    const resposta = await fetch(`${baseURL}/funcionarios`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(funcionario),
+    });
+    if (!resposta.ok)
+      throw new Error(`Erro ao atualizar funcionario: ${resposta.statusText}`);
+    const dados = await resposta.json();
+    return console.log("Funcionario atualizado com sucesso:", dados);
+  } catch (error) {
+    console.error("Erro ao atualizar funcionario:", error);
+    throw error;
+  }
+}
 
 export async function GetFuncionarios(): Promise<Funcionario[]> {
   try {
