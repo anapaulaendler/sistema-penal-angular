@@ -12,6 +12,15 @@ using SistemaPenal.Services.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+options.AddPolicy("Acesso Total",
+    configs => configs
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    )
+);
+
 builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
 
 builder.Services.AddScoped<IPrisioneiroRepository, PrisioneiroRepository>();
@@ -88,5 +97,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("Acesso Total");
 
 app.Run();
