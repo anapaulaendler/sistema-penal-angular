@@ -58,7 +58,7 @@ where TEntity : Pessoa where TDTO : PessoaDTO where TCreateDTO : PessoaCreateDTO
     {
         var result = new OperationResult<TEntity>();
 
-        var entityDTO = await GetPessoaByIdAsync(id);
+        var entityDTO = await _repository.GetByIdAsync(id);
         var entity = _mapper.Map<TEntity>(entityDTO);
 
         await _uow.BeginTransactionAsync();

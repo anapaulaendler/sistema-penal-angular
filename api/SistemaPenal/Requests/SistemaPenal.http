@@ -25,3 +25,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hc
     "PrisioneiroId": "7c722e4c-8747-47a3-bdd2-ba5af72fccd2",
     "Descricao": "AAAAAAA"
 }
+
+### AA
+DELETE {{SistemaPenal_HostAddress}}/funcionarios/ca4081ce-1f20-45f0-a43b-94ad7a4008d4
+Host: localhost:5034
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5Ac2lzdGVtYXBlbmFsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzQ4Mzk0NTA5fQ.742H7oLv6v9DOduKZEHa4xGKKd4bRRpQaAovZ7iz4O8

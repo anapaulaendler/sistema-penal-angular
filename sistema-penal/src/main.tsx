@@ -11,6 +11,9 @@ import Login from "./components/funcionario/Login";
 import Home from "./pages/Home";
 import DetalharPrisioneiro from "./components/prisioneiro/DetalharPrisioneiro";
 import CadastrarPrisioneiro from "./components/prisioneiro/CadastrarPrisioneiro";
+import AddAtividade from "./components/atividade/AddAtividade";
+import ListarAtividades from "./components/atividade/ListarAtividades";
+import ListarAtividadesPrisioneiro from "./components/atividade/ListarAtividadesPrisioneiro";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +64,18 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "add-atividade",
+        element: <AddAtividade />,
+      },
+      {
+        path: "listar-atividades",
+        element: <ListarAtividades />,
+      },
+      {
+        path: "listar-atividades-prisioneiro",
+        element: <ListarAtividadesPrisioneiro />
+      }
     ],
   },
 ]);

@@ -1,35 +1,50 @@
 import { useState } from "react";
-import axios from "axios";
 import api from "../../api";
 
 type TipoAtividade = "dias-de-trabalho" | "estudos" | "livros";
 
+type Atividade = {
+  id: number;
+  prisioneiroId: string;
+  data: string;
+  descricao?: string;
+  isbn?: string;
+  materia?: string;
+};
+
 function ListarAtividadesPrisioneiro() {
   const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>();
-  const [atividades, setAtividades] = useState<any[]>([]);
+  const [atividades, setAtividades] = useState<Atividade[]>([]);
   const [mensagem, setMensagem] = useState("");
   const [mensagemClasse, setMensagemClasse] = useState("");
   const [prisioneiroId, setPrisioneiroId] = useState<string>("");
+  const [resposta, setResposta] = useState("");
+  const [respostaClasse, setRespostaClasse] = useState("");
+  const [cpf, setCpf] = useState<string>("");
 
-  const handleCpfChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cpf = e.target.value;
-    resetMensagem();
+  const handleBuscarCpf = async () => {
+    if (cpf.length !== 11) {
+      setResposta("Por favor, insira um CPF com 11 dígitos.");
+      setRespostaClasse("resposta-erro");
+      return;
+    }
 
     try {
-      const res = await axios.get(`http://localhost:5034/prisioneiros/cpf/${cpf}`);
+      const res = await api.get(`/prisioneiros/cpf/${cpf}`);
       const prisioneiro = res.data;
 
-      if (!prisioneiro?.prisioneiroId) {
-        mostrarMensagem("Prisioneiro não encontrado", "erro");
-        setPrisioneiroId("");
+      if (!prisioneiro || !prisioneiro.id) {
+        setResposta("Prisioneiro não encontrado");
+        setRespostaClasse("resposta-erro");
         return;
       }
 
-      setPrisioneiroId(prisioneiro.prisioneiroId);
-      mostrarMensagem("Prisioneiro encontrado", "sucesso");
-    } catch {
-      mostrarMensagem("Erro ao buscar prisioneiro", "erro");
-      setPrisioneiroId("");
+      setPrisioneiroId(prisioneiro.id);
+      setResposta("Prisioneiro encontrado");
+      setRespostaClasse("resposta-sucesso");
+    } catch (err) {
+      setResposta("Erro ao conectar com o servidor.");
+      setRespostaClasse("resposta-erro");
     }
   };
 
@@ -41,12 +56,16 @@ function ListarAtividadesPrisioneiro() {
       mostrarMensagem("Informe um CPF válido primeiro", "erro");
       return;
     }
+    if (!tipoAtividade) {
+      mostrarMensagem("Selecione o tipo de atividade", "erro");
+      return;
+    }
 
     try {
-      const res = await axios.get(`http://localhost:5034/${tipoAtividade}/${prisioneiroId}`);
+      const res = await api.get(`${tipoAtividade}/${prisioneiroId}`);
 
       if (res.status === 200) {
-        const dados = res.data;
+        const dados: Atividade[] = res.data;
         setAtividades(dados);
 
         if (dados.length === 0) {
@@ -74,16 +93,15 @@ function ListarAtividadesPrisioneiro() {
     setMensagemClasse("");
   };
 
-  const renderDetalhesAtividade = (atividade: any) => {
-    switch (tipoAtividade) {
-      case "dias-de-trabalho":
-        return <><strong>Descrição:</strong> {atividade.descricao}</>;
-      case "livros":
-        return <><strong>ISBN:</strong> {atividade.isbn}</>;
-      case "estudos":
-        return <><strong>Matéria:</strong> {atividade.materia}</>;
-      default:
-        return null;
+  const renderDetalhesAtividade = (atividade: Atividade) => {
+    if (atividade.descricao) {
+      return <>{atividade.descricao}</>;
+    } else if (atividade.isbn) {
+      return <>{atividade.isbn}</>;
+    } else if (atividade.materia) {
+      return <>{atividade.materia}</>;
+    } else {
+      return <em>Sem detalhes disponíveis.</em>;
     }
   };
 
@@ -94,8 +112,16 @@ function ListarAtividadesPrisioneiro() {
         <form onSubmit={handleSubmit}>
           <label>
             CPF do Prisioneiro (apenas números):
-            <input type="text" onChange={handleCpfChange} required />
+            <input
+              type="text"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              required
+            />
           </label>
+          <button type="button" onClick={handleBuscarCpf}>
+            Buscar Prisioneiro
+          </button>
 
           <label>
             Nome da Atividade:
@@ -104,6 +130,7 @@ function ListarAtividadesPrisioneiro() {
               onChange={(e) => setTipoAtividade(e.target.value as TipoAtividade)}
               required
             >
+              <option value="">-- Selecione --</option>
               <option value="estudos">Estudo</option>
               <option value="livros">Livro</option>
               <option value="dias-de-trabalho">Dia de Trabalho</option>
@@ -116,16 +143,27 @@ function ListarAtividadesPrisioneiro() {
         {mensagem && <div className={mensagemClasse}>{mensagem}</div>}
 
         <div className="lista-atividades">
+          {atividades.length === 0 && !mensagem.includes("sucesso") && (
+            <p>Nenhuma atividade encontrada.</p>
+          )}
+
           {atividades.length > 0 && (
-            <ul>
-              {atividades.map((atividade, index) => (
-                <li key={index}>
-                  <strong>ID do Prisioneiro:</strong> {atividade.prisioneiroId} <br />
-                  <strong>Data:</strong> {new Date(atividade.data).toLocaleDateString()} <br />
-                  {renderDetalhesAtividade(atividade)}
-                </li>
-              ))}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {atividades.map((atividade) => (
+                  <tr key={atividade.id}>
+                    <td>{new Date(atividade.data).toLocaleDateString()}</td>
+                    <td>{renderDetalhesAtividade(atividade)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>

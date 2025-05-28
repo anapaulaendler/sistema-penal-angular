@@ -5,7 +5,7 @@ type TipoAtividade = "dias-de-trabalho" | "estudos" | "livros";
 
 function AddAtividade() {
   const [prisioneiroId, setPrisioneiroId] = useState<string>("");
-  const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>();
+  const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>("estudos");
   const [descricao, setDescricao] = useState<string>(""); // ana: pra dia de trabalhoa
   const [isbn, setIsbn] = useState<string>(""); // ana: pra livro
   const [materia, setMateria] = useState<string>(""); // ana: pra estudo
@@ -68,7 +68,7 @@ function AddAtividade() {
         alert("Impossível adicionar atividade.");
       }
     } catch {
-      alert("Erro ao conectar com o servidor.");
+      alert("Erro ao adicionar atividade.");
     }
   };
 

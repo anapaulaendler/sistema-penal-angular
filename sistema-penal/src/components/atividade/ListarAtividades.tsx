@@ -1,21 +1,28 @@
 import { useState } from "react";
-import axios from "axios";
 import api from "../../api";
 
 type TipoAtividade = "dias-de-trabalho" | "estudos" | "livros";
 
+type Atividade = {
+  id: number;
+  prisioneiroId: string;
+  data: string;
+  descricao?: string;
+  isbn?: string;
+  materia?: string;
+};
+
 function ListarAtividades() {
   const [tipoAtividade, setTipoAtividade] = useState<TipoAtividade>("dias-de-trabalho");
-  const [atividades, setAtividades] = useState<any[]>([]);
+  const [atividades, setAtividades] = useState<Atividade[]>([]);
   const [erro, setErro] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const baseUrl = `http://localhost:5034/${tipoAtividade}`;
-
     try {
-      const res = await axios.get(baseUrl);
+      const res = await api.get(`${tipoAtividade}`);
+      console.log("Atividades recebidas:", res.data);
 
       if (res.status === 200) {
         setAtividades(res.data);
@@ -24,22 +31,22 @@ function ListarAtividades() {
         setErro("Erro ao encontrar atividades.");
         setAtividades([]);
       }
-    } catch {
+    } catch (err) {
+      console.error("Erro ao conectar com o servidor:", err);
       alert("Erro ao conectar com o servidor.");
       setAtividades([]);
     }
   };
 
-  const renderDetalhesAtividade = (atividade: any) => {
-    switch (tipoAtividade) {
-      case "dias-de-trabalho":
-        return <><strong>Descrição:</strong> {atividade.descricao}</>;
-      case "livros":
-        return <><strong>ISBN:</strong> {atividade.isbn}</>;
-      case "estudos":
-        return <><strong>Matéria:</strong> {atividade.materia}</>;
-      default:
-        return null;
+  const renderDetalhesAtividade = (atividade: Atividade) => {
+    if (atividade.descricao) {
+      return <>{atividade.descricao}</>;
+    } else if (atividade.isbn) {
+      return <>{atividade.isbn}</>;
+    } else if (atividade.materia) {
+      return <>{atividade.materia}</>;
+    } else {
+      return <em>Sem detalhes disponíveis.</em>;
     }
   };
 
@@ -62,19 +69,30 @@ function ListarAtividades() {
           </label>
           <button type="submit">Buscar Atividades</button>
         </form>
-        
+
         {erro && <p className="erro">{erro}</p>}
+
         <div className="lista-atividades">
           {atividades.length === 0 && !erro && <p>Nenhuma atividade encontrada.</p>}
-          <ul>
-            {atividades.map((atividade, index) => (
-              <li key={index}>
-                <strong>ID do Prisioneiro:</strong> {atividade.prisioneiroId} <br />
-                <strong>Data:</strong> {new Date(atividade.data).toLocaleDateString()} <br />
-                {renderDetalhesAtividade(atividade)}
-              </li>
-            ))}
-          </ul>
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID do Prisioneiro</th>
+                <th>Data</th>
+                <th>Detalhes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {atividades.map((atividade) => (
+                <tr key={atividade.id}>
+                  <td>{atividade.prisioneiroId}</td>
+                  <td>{new Date(atividade.data).toLocaleDateString()}</td>
+                  <td>{renderDetalhesAtividade(atividade)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
