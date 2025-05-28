@@ -65,17 +65,23 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "add-atividade",
-        element: <AddAtividade />,
+        path: "atividades",
+        element: <Home />,
+        children: [
+          {
+            path: "add-atividade",
+            element: <AddAtividade />,
+          },
+          {
+            path: "listar-atividades",
+            element: <ListarAtividades />,
+          },
+          {
+            path: "listar-atividades-prisioneiro",
+            element: <ListarAtividadesPrisioneiro />,
+          },
+        ],
       },
-      {
-        path: "listar-atividades",
-        element: <ListarAtividades />,
-      },
-      {
-        path: "listar-atividades-prisioneiro",
-        element: <ListarAtividadesPrisioneiro />
-      }
     ],
   },
 ]);
