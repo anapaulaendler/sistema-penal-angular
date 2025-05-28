@@ -18,70 +18,7 @@ function ListarAtividadesPrisioneiro() {
   const [mensagem, setMensagem] = useState("");
   const [mensagemClasse, setMensagemClasse] = useState("");
   const [prisioneiroId, setPrisioneiroId] = useState<string>("");
-  const [resposta, setResposta] = useState("");
-  const [respostaClasse, setRespostaClasse] = useState("");
   const [cpf, setCpf] = useState<string>("");
-
-  const handleBuscarCpf = async () => {
-    if (cpf.length !== 11) {
-      setResposta("Por favor, insira um CPF com 11 dígitos.");
-      setRespostaClasse("resposta-erro");
-      return;
-    }
-
-    try {
-      const res = await api.get(`/prisioneiros/cpf/${cpf}`);
-      const prisioneiro = res.data;
-
-      if (!prisioneiro || !prisioneiro.id) {
-        setResposta("Prisioneiro não encontrado");
-        setRespostaClasse("resposta-erro");
-        return;
-      }
-
-      setPrisioneiroId(prisioneiro.id);
-      setResposta("Prisioneiro encontrado");
-      setRespostaClasse("resposta-sucesso");
-    } catch (err) {
-      setResposta("Erro ao conectar com o servidor.");
-      setRespostaClasse("resposta-erro");
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    resetMensagem();
-
-    if (!prisioneiroId) {
-      mostrarMensagem("Informe um CPF válido primeiro", "erro");
-      return;
-    }
-    if (!tipoAtividade) {
-      mostrarMensagem("Selecione o tipo de atividade", "erro");
-      return;
-    }
-
-    try {
-      const res = await api.get(`${tipoAtividade}/${prisioneiroId}`);
-
-      if (res.status === 200) {
-        const dados: Atividade[] = res.data;
-        setAtividades(dados);
-
-        if (dados.length === 0) {
-          mostrarMensagem("Nenhuma atividade encontrada", "info");
-        } else {
-          mostrarMensagem("Atividades carregadas com sucesso", "sucesso");
-        }
-      } else {
-        mostrarMensagem("Erro ao buscar atividades", "erro");
-        setAtividades([]);
-      }
-    } catch {
-      mostrarMensagem("Erro ao conectar com o servidor", "erro");
-      setAtividades([]);
-    }
-  };
 
   const mostrarMensagem = (msg: string, tipo: "sucesso" | "erro" | "info") => {
     setMensagem(msg);
@@ -93,79 +30,114 @@ function ListarAtividadesPrisioneiro() {
     setMensagemClasse("");
   };
 
-  const renderDetalhesAtividade = (atividade: Atividade) => {
-    if (atividade.descricao) {
-      return <>{atividade.descricao}</>;
-    } else if (atividade.isbn) {
-      return <>{atividade.isbn}</>;
-    } else if (atividade.materia) {
-      return <>{atividade.materia}</>;
-    } else {
-      return <em>Sem detalhes disponíveis.</em>;
+  const handleBuscarCpf = async () => {
+    resetMensagem();
+
+    if (cpf.length !== 11 || !/^\d+$/.test(cpf)) {
+      return mostrarMensagem("Insira um CPF válido com 11 dígitos numéricos.", "erro");
     }
+
+    try {
+      const res = await api.get(`/prisioneiros/cpf/${cpf}`);
+      const prisioneiro = res.data;
+
+      if (!prisioneiro || !prisioneiro.id) {
+        return mostrarMensagem("Prisioneiro não encontrado.", "erro");
+      }
+
+      setPrisioneiroId(prisioneiro.id);
+      mostrarMensagem("Prisioneiro encontrado com sucesso.", "sucesso");
+    } catch {
+      mostrarMensagem("Erro ao buscar prisioneiro.", "erro");
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    resetMensagem();
+
+    if (!prisioneiroId) return mostrarMensagem("Busque um prisioneiro antes.", "erro");
+    if (!tipoAtividade) return mostrarMensagem("Selecione o tipo de atividade.", "erro");
+
+    try {
+      const res = await api.get(`${tipoAtividade}/${prisioneiroId}`);
+      const dados: Atividade[] = res.data;
+      setAtividades(dados);
+
+      if (dados.length === 0) {
+        mostrarMensagem("Nenhuma atividade encontrada.", "info");
+      } else {
+        mostrarMensagem("Atividades carregadas com sucesso.", "sucesso");
+      }
+    } catch {
+      mostrarMensagem("Erro ao buscar atividades.", "erro");
+      setAtividades([]);
+    }
+  };
+
+  const renderDetalhesAtividade = (atividade: Atividade) => {
+    if (atividade.descricao) return atividade.descricao;
+    if (atividade.isbn) return `ISBN: ${atividade.isbn}`;
+    if (atividade.materia) return `Matéria: ${atividade.materia}`;
+    return <em>Sem detalhes</em>;
   };
 
   return (
     <div className="main-content">
       <div id="form">
-        <h1>Listar Atividades</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            CPF do Prisioneiro (apenas números):
+        <h1>Consultar Atividades de Prisioneiro</h1>
+
+        <form onSubmit={handleSubmit} className="formulario">
+          <div className="form-group">
+            <label>CPF do Prisioneiro:</label>
             <input
               type="text"
               value={cpf}
+              maxLength={11}
               onChange={(e) => setCpf(e.target.value)}
+              placeholder="Somente números"
               required
             />
-          </label>
-          <button type="button" onClick={handleBuscarCpf}>
-            Buscar Prisioneiro
-          </button>
+            <button type="button" onClick={handleBuscarCpf}>Buscar</button>
+          </div>
 
-          <label>
-            Nome da Atividade:
+          <div className="form-group">
+            <label>Tipo de Atividade:</label>
             <select
               value={tipoAtividade}
               onChange={(e) => setTipoAtividade(e.target.value as TipoAtividade)}
               required
             >
               <option value="">-- Selecione --</option>
-              <option value="estudos">Estudo</option>
-              <option value="livros">Livro</option>
-              <option value="dias-de-trabalho">Dia de Trabalho</option>
+              <option value="estudos">Estudos</option>
+              <option value="livros">Livros</option>
+              <option value="dias-de-trabalho">Dias de Trabalho</option>
             </select>
-          </label>
+          </div>
 
           <button type="submit">Buscar Atividades</button>
         </form>
 
-        {mensagem && <div className={mensagemClasse}>{mensagem}</div>}
+        {mensagem && <div className={`mensagem ${mensagemClasse}`}>{mensagem}</div>}
 
-        <div className="lista-atividades">
-          {atividades.length === 0 && !mensagem.includes("sucesso") && (
-            <p>Nenhuma atividade encontrada.</p>
-          )}
-
-          {atividades.length > 0 && (
-            <table>
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>Detalhes</th>
+        {atividades.length > 0 && (
+          <table className="tabela-atividades">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Detalhes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {atividades.map((atividade) => (
+                <tr key={atividade.id}>
+                  <td>{new Date(atividade.data).toLocaleDateString()}</td>
+                  <td>{renderDetalhesAtividade(atividade)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {atividades.map((atividade) => (
-                  <tr key={atividade.id}>
-                    <td>{new Date(atividade.data).toLocaleDateString()}</td>
-                    <td>{renderDetalhesAtividade(atividade)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
