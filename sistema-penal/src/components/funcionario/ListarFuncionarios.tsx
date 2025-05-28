@@ -96,7 +96,15 @@ const ListarFuncionarios = () => {
                     <button
                       onClick={() => {
                         if (funcionario.id) {
-                          DeleteFuncionario(funcionario.id);
+                          DeleteFuncionario(funcionario.id)
+                            .then(() => {
+                              setFuncionarios((prev) =>
+                                prev.filter((f) => f.id !== funcionario.id),
+                              );
+                            })
+                            .catch(() => {
+                              alert("Erro ao deletar funcionário.");
+                            });
                         } else {
                           alert("ID do funcionário não encontrado.");
                         }

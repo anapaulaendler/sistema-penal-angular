@@ -7,7 +7,6 @@ function CadastrarPrisioneiro() {
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState<Date>();
   const [cpf, setCpf] = useState("");
-  const [descricaoSentenca, setDescricaoSentenca] = useState("");
   const [diaDeChegada, setDiaDeChegada] = useState<Date>();
   const [diaDeSaidaOriginal, setDiaDeSaidaOriginal] = useState<Date>();
   const [diaDeSaidaAtualizado, setDiaDeSaidaAtualizado] = useState<Date>();
@@ -29,7 +28,6 @@ function CadastrarPrisioneiro() {
       nome,
       dataNascimento,
       cpf,
-      descricaoSentenca,
       diaDeChegada,
       diaDeSaidaOriginal,
       diaDeSaidaAtualizado,
@@ -46,7 +44,6 @@ function CadastrarPrisioneiro() {
         setNome("");
         setDataNascimento(undefined);
         setCpf("");
-        setDescricaoSentenca("");
         setDiaDeChegada(undefined);
         setDiaDeSaidaOriginal(undefined);
         setDiaDeSaidaAtualizado(undefined);
@@ -97,17 +94,6 @@ function CadastrarPrisioneiro() {
             placeholder="000.000.000-00"
           />
         </div>
-
-        <div className="form-group">
-          <label htmlFor="descricaoSentenca">Descrição da Sentença</label>
-          <textarea
-            id="descricaoSentenca"
-            value={descricaoSentenca}
-            required
-            onChange={(e) => setDescricaoSentenca(e.target.value)}
-          />
-        </div>
-
         <div className="form-group">
           <label htmlFor="diaDeChegada">Dia de Chegada</label>
           <input
@@ -120,7 +106,7 @@ function CadastrarPrisioneiro() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="diaDeSaidaOriginal">Data de Saída Original</label>
+          <label htmlFor="diaDeSaidaOriginal">Data de Saída</label>
           <input
             type="date"
             id="diaDeSaidaOriginal"
@@ -130,25 +116,12 @@ function CadastrarPrisioneiro() {
                 : ""
             }
             required
-            onChange={(e) => setDiaDeSaidaOriginal(new Date(e.target.value))}
+            onChange={(e) => {
+              setDiaDeSaidaOriginal(new Date(e.target.value));
+              setDiaDeSaidaAtualizado(new Date(e.target.value));
+            }}
           />
         </div>
-
-        <div className="form-group">
-          <label htmlFor="diaDeSaidaAtualizado">Data de Saída Atualizada</label>
-          <input
-            type="date"
-            id="diaDeSaidaAtualizado"
-            value={
-              diaDeSaidaAtualizado
-                ? formatDateToISO(diaDeSaidaAtualizado) ?? ""
-                : ""
-            }
-            required
-            onChange={(e) => setDiaDeSaidaAtualizado(new Date(e.target.value))}
-          />
-        </div>
-
         <button type="submit" className="form-submit-button">
           Cadastrar
         </button>

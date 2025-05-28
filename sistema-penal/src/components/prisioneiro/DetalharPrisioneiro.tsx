@@ -92,9 +92,6 @@ export default function DetalharPrisioneiro() {
             <strong>Data de Nascimento:</strong>{" "}
             {new Date(prisioneiro.dataNascimento).toLocaleDateString()}
           </div>
-          <div className="campo">
-            <strong>Sentença:</strong> {prisioneiro.descricaoSentenca}
-          </div>
 
           <hr />
           <h3>Atividades</h3>

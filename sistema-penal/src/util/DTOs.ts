@@ -20,7 +20,6 @@ export function prisioneiroDTO(dados: any): Prisioneiro {
     dados.nome,
     new Date(dados.dataNascimento),
     dados.cpf,
-    dados.descricaoSentenca,
     new Date(dados.diaDeChegada),
     new Date(dados.diaDeSaidaOriginal),
     new Date(dados.diaDeSaidaAtualizado),

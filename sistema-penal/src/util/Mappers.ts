@@ -64,22 +64,23 @@ export function mapFuncionario(dados: any): Funcionario[] {
 }
 
 export function mapPrisioneiro(dados: any): Prisioneiro[] {
-  return dados.map(
-    (d: any) =>
-      new Prisioneiro(
-        d.nome,
-        new Date(d.dataNascimento),
-        d.cpf,
-        d.descricaoSentenca,
-        new Date(d.diaDeChegada),
-        new Date(d.diaDeSaidaOriginal),
-        new Date(d.diaDeSaidaAtualizado),
-        d.contadorDeLivros,
-        d.anoAtual,
-        mapLivro(d.livros),
-        mapEstudo(d.estudos),
-        mapDiaDeTrabalho(d.diasDeTrabalho),
-        d.id ?? undefined,
-      ),
-  );
+  return dados.map((d: any) => {
+    const id =
+      typeof d.id === "string" && d.id !== "" ? d.id : crypto.randomUUID();
+
+    return new Prisioneiro(
+      d.nome,
+      new Date(d.dataNascimento),
+      d.cpf,
+      new Date(d.diaDeChegada),
+      new Date(d.diaDeSaidaOriginal),
+      new Date(d.diaDeSaidaAtualizado),
+      d.contadorDeLivros,
+      d.anoAtual,
+      mapLivro(d.livros),
+      mapEstudo(d.estudos),
+      mapDiaDeTrabalho(d.diasDeTrabalho),
+      id,
+    );
+  });
 }

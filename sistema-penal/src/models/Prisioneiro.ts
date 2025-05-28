@@ -4,7 +4,6 @@ import type { Estudo } from "./Estudo";
 import type { Livro } from "./Livro";
 
 export class Prisioneiro extends Pessoa {
-  descricaoSentenca: string;
   diaDeChegada: Date;
   diaDeSaidaOriginal: Date;
   diaDeSaidaAtualizado: Date;
@@ -18,7 +17,6 @@ export class Prisioneiro extends Pessoa {
     nome: string,
     dataNascimento: Date,
     cpf: string,
-    descricaoSentenca: string,
     diaDeChegada: Date,
     diaDeSaidaOriginal: Date,
     diaDeSaidaAtualizado: Date,
@@ -30,7 +28,6 @@ export class Prisioneiro extends Pessoa {
     id?: string,
   ) {
     super(nome, dataNascimento, cpf, id);
-    this.descricaoSentenca = descricaoSentenca;
     this.diaDeChegada = diaDeChegada;
     this.diaDeSaidaOriginal = diaDeSaidaOriginal;
     this.diaDeSaidaAtualizado = diaDeSaidaAtualizado;
