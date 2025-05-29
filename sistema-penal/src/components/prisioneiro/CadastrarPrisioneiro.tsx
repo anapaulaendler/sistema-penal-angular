@@ -3,6 +3,34 @@ import { Prisioneiro } from "../../models/Prisioneiro";
 import { CreatePrisioneiroAsync } from "./RequisicoesPrisioneiro";
 import { formatDateToISO } from "../../util/FormatarData";
 
+// Função para validar CPF com os dígitos verificadores
+function validarCPF(cpf: string): boolean {
+  cpf = cpf.replace(/[^\d]+/g, "");
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let soma = 0;
+  for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+  let resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf.charAt(9))) return false;
+
+  soma = 0;
+  for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+
+  return resto === parseInt(cpf.charAt(10));
+}
+
+// Função para aplicar a máscara no CPF
+function formatarCPF(cpf: string): string {
+  const somenteNumeros = cpf.replace(/\D/g, "").slice(0, 11);
+  return somenteNumeros
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1-$2");
+}
+
 function CadastrarPrisioneiro() {
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState<Date>();
@@ -24,10 +52,16 @@ function CadastrarPrisioneiro() {
       return;
     }
 
+    const cpfLimpo = cpf.replace(/\D/g, "");
+    if (!validarCPF(cpfLimpo)) {
+      alert("CPF inválido.");
+      return;
+    }
+
     const novoPrisioneiro = new Prisioneiro(
       nome,
       dataNascimento,
-      cpf,
+      cpfLimpo,
       diaDeChegada,
       diaDeSaidaOriginal,
       diaDeSaidaAtualizado,
@@ -88,18 +122,24 @@ function CadastrarPrisioneiro() {
           <input
             type="text"
             id="cpf"
-            value={cpf}
+            inputMode="numeric"
+            maxLength={14}
+            value={formatarCPF(cpf)}
             required
-            onChange={(e) => setCpf(e.target.value)}
+            onChange={(e) => {
+              const apenasNumeros = e.target.value.replace(/\D/g, "");
+              setCpf(apenasNumeros);
+            }}
             placeholder="000.000.000-00"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="diaDeChegada">Dia de Chegada</label>
           <input
             type="date"
             id="diaDeChegada"
-            value={diaDeChegada ? formatDateToISO(diaDeChegada) || "" : ""}
+            value={formatDateToISO(diaDeChegada) ?? ""}
             required
             onChange={(e) => setDiaDeChegada(new Date(e.target.value))}
           />
@@ -111,17 +151,18 @@ function CadastrarPrisioneiro() {
             type="date"
             id="diaDeSaidaOriginal"
             value={
-              diaDeSaidaOriginal
-                ? formatDateToISO(diaDeSaidaOriginal) ?? ""
-                : ""
+              (diaDeSaidaOriginal ? formatDateToISO(diaDeSaidaOriginal) : "") ||
+              ""
             }
             required
             onChange={(e) => {
-              setDiaDeSaidaOriginal(new Date(e.target.value));
-              setDiaDeSaidaAtualizado(new Date(e.target.value));
+              const novaData = new Date(e.target.value);
+              setDiaDeSaidaOriginal(novaData);
+              setDiaDeSaidaAtualizado(novaData);
             }}
           />
         </div>
+
         <button type="submit" className="form-submit-button">
           Cadastrar
         </button>
