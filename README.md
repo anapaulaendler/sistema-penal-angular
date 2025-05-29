@@ -41,7 +41,7 @@
 git clone https://github.com/PedroWernek/dev-web-sistema-penal
 
 # 2. Acesse a pasta do projeto
-cd nome-da-pasta
+cd dev-web-sistema-penal
 
 # 3. Restaure os pacotes
 dotnet restore
