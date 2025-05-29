@@ -2,34 +2,7 @@ import { useState } from "react";
 import { Prisioneiro } from "../../models/Prisioneiro";
 import { CreatePrisioneiroAsync } from "./RequisicoesPrisioneiro";
 import { formatDateToISO } from "../../util/FormatarData";
-
-// Função para validar CPF com os dígitos verificadores
-function validarCPF(cpf: string): boolean {
-  cpf = cpf.replace(/[^\d]+/g, "");
-  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-
-  let soma = 0;
-  for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-  let resto = (soma * 10) % 11;
-  if (resto === 10 || resto === 11) resto = 0;
-  if (resto !== parseInt(cpf.charAt(9))) return false;
-
-  soma = 0;
-  for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-  resto = (soma * 10) % 11;
-  if (resto === 10 || resto === 11) resto = 0;
-
-  return resto === parseInt(cpf.charAt(10));
-}
-
-// Função para aplicar a máscara no CPF
-function formatarCPF(cpf: string): string {
-  const somenteNumeros = cpf.replace(/\D/g, "").slice(0, 11);
-  return somenteNumeros
-    .replace(/^(\d{3})(\d)/, "$1.$2")
-    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
-    .replace(/\.(\d{3})(\d)/, ".$1-$2");
-}
+import { formatarCPF } from "../../util/FormatarCPF";
 
 function CadastrarPrisioneiro() {
   const [nome, setNome] = useState("");
@@ -38,6 +11,12 @@ function CadastrarPrisioneiro() {
   const [diaDeChegada, setDiaDeChegada] = useState<Date>();
   const [diaDeSaidaOriginal, setDiaDeSaidaOriginal] = useState<Date>();
   const [diaDeSaidaAtualizado, setDiaDeSaidaAtualizado] = useState<Date>();
+
+  function handleCpfChange(e: string) {
+    const raw = e.replace(/\D/g, "").slice(0, 11);
+    const formatted = formatarCPF(raw);
+    setCpf(formatted);
+  }
 
   function enviarPrisioneiro(e: React.FormEvent) {
     e.preventDefault();
@@ -52,16 +31,10 @@ function CadastrarPrisioneiro() {
       return;
     }
 
-    const cpfLimpo = cpf.replace(/\D/g, "");
-    if (!validarCPF(cpfLimpo)) {
-      alert("CPF inválido.");
-      return;
-    }
-
     const novoPrisioneiro = new Prisioneiro(
       nome,
       dataNascimento,
-      cpfLimpo,
+      cpf,
       diaDeChegada,
       diaDeSaidaOriginal,
       diaDeSaidaAtualizado,
@@ -124,11 +97,10 @@ function CadastrarPrisioneiro() {
             id="cpf"
             inputMode="numeric"
             maxLength={14}
-            value={formatarCPF(cpf)}
+            value={cpf}
             required
             onChange={(e) => {
-              const apenasNumeros = e.target.value.replace(/\D/g, "");
-              setCpf(apenasNumeros);
+              handleCpfChange(e.target.value);
             }}
             placeholder="000.000.000-00"
           />
