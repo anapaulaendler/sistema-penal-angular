@@ -28,37 +28,55 @@ function Login() {
   };
 
   return (
-    <div className="form-container">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin} className="form-content">
-        <div className="form-group">
-          <label htmlFor="username">
-            Usuário:
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">
-            Senha:
-            <input
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <button className="form-submit-button" type="submit">
-          Entrar
-        </button>
-        {error && <p className="resposta-erro">{error}</p>}
-        {redirect && <Navigate to="/listar/funcionario" />}
-      </form>
+    <div
+      className="form-container"
+      style={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}>
+        <h1 style={{ padding: "10px" }}>Login</h1>
+        <form onSubmit={handleLogin} className="form-content">
+          <div className="form-group">
+            <label htmlFor="username">
+              Usuário:
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">
+              Senha:
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <button className="form-submit-button" type="submit">
+            Entrar
+          </button>
+          {error && <p className="resposta-erro">{error}</p>}
+          {redirect && <Navigate to="/listar/funcionario" />}
+        </form>
+      </div>
     </div>
   );
 }
