@@ -44,6 +44,7 @@ export async function UpdatePrisioneiroAsync(prisioneiro: Prisioneiro) {
   try {
     const resposta = await api.put("/prisioneiros", prisioneiro);
     console.log("Prisioneiro atualizado com sucesso:", resposta.data);
+    window.location.reload();
     return resposta.data;
   } catch (error: any) {
     console.error("Erro ao atualizar prisioneiro:", error);
