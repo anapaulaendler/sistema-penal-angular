@@ -28,15 +28,20 @@ const EditarFuncionario = () => {
     try {
       const resposta = await GetFuncionarioByCpf(cpf!);
       const dados: Funcionario = resposta;
+
       if (!dados) {
         alert("Funcionario não encontrado");
         return;
       }
+      setPapel(dados.papel);
       setFuncionario(dados);
       setNome(dados.nome);
       setEmail(dados.email);
       setSenha(dados.senha);
-      setPapel(dados.papel);
+
+      // Converte papel para string "Admin" ou "General" baseado no enum
+      const papelComoString = dados.papel === Role.Admin ? "Admin" : "General";
+      setPapel(papelComoString as Role);
     } catch (erro: any) {
       console.error("Erro ao carregar funcionarios:", erro);
       alert("Erro ao carregar funcionarios");

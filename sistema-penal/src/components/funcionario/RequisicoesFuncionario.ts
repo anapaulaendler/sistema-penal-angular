@@ -43,7 +43,7 @@ export async function GetFuncionarioByCpf(cpf: string): Promise<Funcionario> {
 
 export async function UpdateFuncionarioAsync(funcionario: Funcionario) {
   const dto = funcionarioToDTO(funcionario);
-
+  console.log("DTO enviado:", funcionarioToDTO(funcionario));
   try {
     const resposta = await api.put("/funcionarios", dto);
     console.log("Funcionario atualizado com sucesso:", resposta.data);
@@ -80,6 +80,7 @@ export async function DeleteFuncionario(id: string) {
 }
 
 function roleToEnumValue(papel: Role): number {
+  console.log("Valor recebido em roleToEnumValue:", papel);
   switch (papel) {
     case "Admin":
       return 0;
@@ -90,12 +91,12 @@ function roleToEnumValue(papel: Role): number {
   }
 }
 
-export function funcionarioToDTO(funcionario: Funcionario) {
+function funcionarioToDTO(funcionario: Funcionario) {
   return {
     id: funcionario.id,
     nome: funcionario.nome,
-    dataNascimento: funcionario.dataNascimento.toISOString(),
     cpf: funcionario.cpf,
+    dataNascimento: funcionario.dataNascimento,
     email: funcionario.email,
     senha: funcionario.senha,
     papel: roleToEnumValue(funcionario.papel),

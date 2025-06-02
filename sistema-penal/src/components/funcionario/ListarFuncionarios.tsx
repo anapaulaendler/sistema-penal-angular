@@ -90,7 +90,7 @@ const ListarFuncionarios = () => {
                   <td>{funcionario.papel}</td>
 
                   <td className="action-buttons">
-                    <Link to={`/listar/funcionario/editar/${funcionario.id}`}>
+                    <Link to={`/listar/funcionario/editar/${funcionario.cpf}`}>
                       <button className="edit-btn">Editar</button>
                     </Link>
                     <button
