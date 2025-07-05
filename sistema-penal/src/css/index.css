@@ -1,0 +1,283 @@
+/* RESET E BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FFFBF3;
+}
+
+/* CONTAINERS */
+.main-content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* FORMULÁRIOS */
+#form h1,
+.form-header {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+form,
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+label,
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 18px;
+}
+
+input,
+select,
+.form-group input,
+.form-group select,
+.search-input,
+.table-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+button,
+.form-submit-button,
+.botao,
+.botao-voltar,
+.save-btn,
+.cancel-btn,
+.edit-btn,
+.delete-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+button:hover,
+.form-submit-button:hover,
+.botao:hover,
+.botao-voltar:hover,
+.save-btn:hover,
+.cancel-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: #0056b3;
+}
+
+/* BOTÕES ESPECÍFICOS */
+.save-btn {
+  background-color: #4caf50;
+}
+
+.cancel-btn,
+.delete-btn {
+  background-color: #f44336;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+}
+
+/* MENSAGENS */
+.resposta-sucesso {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.resposta-erro,
+.erro {
+  color: #dc3545;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* TABELAS */
+table,
+.styled-table,
+.tabela-atividade {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #000;
+}
+
+tbody tr:hover,
+.styled-table tbody tr:hover {
+  background-color: #f8f8f8;
+}
+
+
+.editing-row {
+  background-color: #fff8e1 !important;
+}
+
+.non-editable {
+  color: #666;
+  background-color: #f9f9f9;
+}
+
+/* OUTROS ELEMENTOS */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-badge.active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* BUSCA */
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.search-input {
+  max-width: 500px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* DETALHES */
+.detalhes-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.campo {
+  margin-bottom: 10px;
+}
+
+.input-edicao {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.atividade {
+  margin-top: 20px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  th,
+  td {
+    padding: 0.75rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+.header {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid #2196f3;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.nav-list li a {
+  background-color: #2196f3;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.nav-list li a:hover {
+  background-color: #7fc5ff;
+}
