@@ -52,7 +52,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
 var conectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
-builder.Services.AddDbContext<AppDbContext>(x => x.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString(nameof(AppDbContext))));
 
 var chaveJwt = builder.Configuration["JwtSettings:SecretKey"];
 
