@@ -39,6 +39,8 @@ where TEntity : Pessoa where TDTO : PessoaDTO where TCreateDTO : PessoaCreateDTO
         {
             var entity = _mapper.Map<TEntity>(entityCreateDTO);
 
+            entity.Cpf = Regex.Replace(entity.Cpf, @"\D", "");
+
             await _repository.AddAsync(entity, cancellation);
             await _uow.CommitTransactionAsync();
 
@@ -84,7 +86,7 @@ where TEntity : Pessoa where TDTO : PessoaDTO where TCreateDTO : PessoaCreateDTO
         if (string.IsNullOrWhiteSpace(cpf))
             throw new ArgumentException("Invalid CPF.");
         
-        string formatted = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
+        string formatted = Regex.Replace(cpf, @"\D", "");
         
         var entity = await _repository.GetPessoaByCpfAsync(formatted, cancellation);
         var entityDTO = _mapper.Map<TDTO>(entity);
@@ -116,6 +118,9 @@ where TEntity : Pessoa where TDTO : PessoaDTO where TCreateDTO : PessoaCreateDTO
             throw new ArgumentException("Invalid ID.");
 
         _mapper.Map(updateDTO, entity);
+
+        entity.Cpf = Regex.Replace(entity.Cpf, @"\D", "");
+
         await _uow.BeginTransactionAsync();
 
         try

@@ -18,13 +18,12 @@ namespace SistemaPenal.Seed
             if (!context.Prisioneiros.Any())
             {
                 context.Prisioneiros.AddRange(
-                    // ana: a fim de testes, o ContadorDeLivros está sendo inicializado já com um valor
                     new Prisioneiro
                     {
                         Id = Guid.NewGuid(),
                         Nome = "João dos Santos",
                         DataNascimento = new DateTime(1985, 2, 14),
-                        Cpf = "123.456.789-00",
+                        Cpf = "12345678900",
                         ContadorDeLivros = 5,
                         AnoAtual = DateTime.Now.Year,
                         DiaDeChegada = DateTime.Now.AddMonths(-8),
@@ -36,7 +35,7 @@ namespace SistemaPenal.Seed
                         Id = Guid.NewGuid(),
                         Nome = "Maria Oliveira",
                         DataNascimento = new DateTime(1990, 7, 3),
-                        Cpf = "987.654.321-11",
+                        Cpf = "98765432111",
                         ContadorDeLivros = 2,
                         AnoAtual = DateTime.Now.Year,
                         DiaDeChegada = DateTime.Now.AddMonths(-3),
@@ -54,7 +53,7 @@ namespace SistemaPenal.Seed
                         Id = Guid.NewGuid(),
                         Nome = "Carlos Administrador",
                         DataNascimento = new DateTime(1980, 6, 15),
-                        Cpf = "111.222.333-44",
+                        Cpf = "11122233344",
                         Email = "admin@sistemapenal.com",
                         Senha = "admin123",
                         Papel = Role.Admin
@@ -64,9 +63,9 @@ namespace SistemaPenal.Seed
                         Id = Guid.NewGuid(),
                         Nome = "Lucia General",
                         DataNascimento = new DateTime(1992, 11, 2),
-                        Cpf = "555.666.777-88",
+                        Cpf = "55566677788",
                         Email = "lucia@sistemapenal.com",
-                        Senha = "general123", // ⚠️ Hash it!
+                        Senha = "general123",
                         Papel = Role.General
                     }
                 );
