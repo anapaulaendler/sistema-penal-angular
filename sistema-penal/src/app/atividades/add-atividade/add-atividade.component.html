@@ -1,0 +1,45 @@
+<div class="main-content">
+    <div id="form">
+        <h1>Cadastrar Atividade a Prisioneiro</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <label>
+                CPF do prisioneiro (apenas números):
+                <input formControlName="cpf" type="text"/>
+            </label>
+            <button type="button" (click)="buscarCpf()">Buscar Prisioneiro</button>
+            <div [ngClass]="respostaClasse">{{ resposta }}</div>
+
+            <label>
+                Nome da Atividade:
+                <select formControlName="tipoAtividade">
+                    <option value="estudos">Estudo</option>
+                    <option value="livros">Livro</option>
+                    <option value="dias-de-trabalho">Dia de Trabalho</option>
+                </select>
+            </label>
+
+            <div *ngIf="form.value.tipoAtividade === 'dias-de-trabalho'">
+                <label>
+                Descrição do Trabalho:
+                <input formControlName="descricao" type="text" />
+                </label>
+            </div>
+
+            <div *ngIf="form.value.tipoAtividade === 'livros'">
+                <label>
+                ISBN 11 do livro:
+                <input formControlName="isbn" type="text" />
+                </label>
+            </div>
+
+            <div *ngIf="form.value.tipoAtividade === 'estudos'">
+                <label>
+                Matéria estudada:
+                <input formControlName="materia" type="text" />
+                </label>
+            </div>
+
+            <button type="submit" [disabled]="form.invalid">Cadastrar</button>
+        </form>
+    </div>
+</div>
