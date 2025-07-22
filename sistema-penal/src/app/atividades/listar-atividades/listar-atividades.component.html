@@ -1,0 +1,39 @@
+<div class="main-content">
+  <div id="form">
+    <h1>Listar Atividades</h1>
+    <form [formGroup]="form" (ngSubmit)="buscarAtividades()">
+      <label>
+        Nome da Atividade:
+        <select formControlName="tipoAtividade">
+          <option value="estudos">Estudo</option>
+          <option value="livros">Livro</option>
+          <option value="dias-de-trabalho">Dia de Trabalho</option>
+        </select>
+      </label>
+      <button type="submit">Buscar Atividades</button>
+    </form>
+
+    <p class="erro" *ngIf="erro">{{ erro }}</p>
+
+    <div class="lista-atividades" *ngIf="atividades.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>ID do Prisioneiro</th>
+            <th>Data</th>
+            <th>Detalhes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let atividade of atividades">
+            <td>{{ atividade.prisioneiroId }}</td>
+            <td>{{ atividade.data | date:'shortDate' }}</td>
+            <td>{{ detalhesAtividade(atividade) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="atividades.length === 0 && !erro">Nenhuma atividade encontrada.</p>
+  </div>
+</div>

@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { AddAtividadeComponent } from './atividades/add-atividade/add-atividade.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ListarAtividadesComponent } from './atividades/listar-atividades/listar-atividades.component';
+import { ListarAtividadesPrisioneiroComponent } from './atividades/listar-atividades-prisioneiro/listar-atividades-prisioneiro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddAtividadeComponent
+    AddAtividadeComponent,
+    ListarAtividadesComponent,
+    ListarAtividadesPrisioneiroComponent
   ],
   imports: [
     BrowserModule,

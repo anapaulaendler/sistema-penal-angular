@@ -13,4 +13,13 @@ export class AtividadeService {
     adicionarAtividade(tipoAtividade: string, payload: any) {
         return lastValueFrom(this.http.post(`/${tipoAtividade}`, payload));
     }
+
+    listarAtividades(tipo: string) {
+        return lastValueFrom(this.http.get<any[]>(`/${tipo}`));
+    }
+
+    listarAtividadesPorPrisioneiro(tipo: string, prisioneiroId: string) {
+        return lastValueFrom(this.http.get<any[]>(`/${tipo}/${prisioneiroId}`));
+    }
+
 }
