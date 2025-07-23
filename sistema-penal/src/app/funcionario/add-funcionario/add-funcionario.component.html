@@ -1,0 +1,46 @@
+<div class="form-container">
+    <div class="form-header">
+        <h1>Cadastro de Funcionario</h1>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <label>
+            Nome:
+            <input 
+            placeholder="Por favor insira o nome."
+            formControlName="nome"
+            type="text"
+            />
+        </label>
+
+        <label>
+            Data de nascimento:
+            <input formControlName="dataNascimento" type="date" />
+        </label>
+
+        <label>
+            CPF (apenas números):
+            <input formControlName="cpf" type="text" />
+        </label>
+
+        <label>
+            E-mail:
+            <input formControlName="email" type="text" />
+        </label>
+
+        <label>
+            Senha:
+            <input formControlName="senha" type="password" />
+        </label>
+
+        <label>
+            Cargo:
+            <select formControlName="cargo">
+                <option value="general">Geral</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </label>
+
+        <button type="submit" [disabled]="form.invalid">Cadastrar Funcionario</button>
+    </form>
+</div>

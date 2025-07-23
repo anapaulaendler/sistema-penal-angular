@@ -12,6 +12,8 @@ import { LoginComponent } from './auth/login/login.component';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AddFuncionarioComponent } from './funcionario/add-funcionario/add-funcionario.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     AddAtividadeComponent,
     ListarAtividadesComponent,
     ListarAtividadesPrisioneiroComponent,
-    LoginComponent
+    LoginComponent,
+    AddFuncionarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     {

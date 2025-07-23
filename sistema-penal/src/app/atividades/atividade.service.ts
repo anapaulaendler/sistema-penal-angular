@@ -15,11 +15,11 @@ export class AtividadeService {
         return lastValueFrom(this.http.post(`/${tipoAtividade}`, payload));
     }
 
-    listarAtividades(tipo: string) {
-        return lastValueFrom(this.http.get<any[]>(`/${tipo}`));
+    listarAtividades(tipoAtividade: string) {
+        return lastValueFrom(this.http.get<any[]>(`/${tipoAtividade}`));
     }
 
-    listarAtividadesPorPrisioneiro(tipo: string, prisioneiroId: string) {
-        return lastValueFrom(this.http.get<any[]>(`/${tipo}/${prisioneiroId}`));
+    listarAtividadesPorPrisioneiro(tipoAtividade: string, prisioneiroId: string) {
+        return lastValueFrom(this.http.get<any[]>(`/${tipoAtividade}/${prisioneiroId}`));
     }
 }
