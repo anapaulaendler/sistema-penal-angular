@@ -1,17 +1,18 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { shareReplay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-    
-    constructor(private http: HttpClient) {
-    }
+  private apiUrl = 'http://localhost:5034/auth/login';
 
-    login(email: string, password: string) {
-        return this.http.post<User>('/api/login', { email, password })
-        .shareReplay(); 
-        /* We are calling shareReplay to prevent the receiver of this Observable from accidentally 
-        triggering multiple POST requests due to multiple subscriptions. */
-    }
+  constructor(private http: HttpClient) {}
+
+  login(email: string, senha: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { Email: email, Senha: senha }).pipe(
+      tap(res => {
+        localStorage.setItem('token', res.token);
+      })
+    );
+  }
 }
