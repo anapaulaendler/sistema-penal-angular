@@ -1,17 +1,10 @@
-# 📚 Nome do Projeto
+# 📚 Sistema Penal
 
-> Sistema Penal.
+> Projeto desenvolvido juntamente com [Pedro Wernek](https://github.com/PedroWernek) dentro da matéria de Desenvolvimento Web Avançado. O fork tem como objetivo migrar o framework do front-end de React para Angular (v. 14).
 
 ## 🧾 Descrição
 
 > "Esta API simula o gerenciamento de prisioneiros, funcionários e atividades realizadas dentro de uma prisão. Ela oferece funcionalidades para cadastro, listagem, busca, atualização e exclusão de prisioneiros e funcionários, além de permitir login de funcionários com controle de acesso baseado em papéis (RBAC). Também é possível cadastrar, buscar e listar novas atividades realizadas pelos prisioneiros, com a possibilidade de redução de pena com base nessas atividades."
-
----
-
-## 👥 Integrantes da Dupla
-
-- Ana Paula Endler - [anapaulaendler](https://github.com/anapaulaendler)
-- Pedro Wernek de Castilho Netto - [PedroWernek](https://github.com/PedroWernek)
 
 ---
 
@@ -20,7 +13,7 @@
 - **Linguagem:** C# (.NET 8)
 - **Framework:** ASP.NET Core
 - **ORM:** Entity Framework Core
-- **Banco de Dados:** MySQL
+- **Banco de Dados:** SQLite
 - **Front-end:** JavaScript
 - **Versionamento:** Git + GitHub
 
@@ -31,8 +24,8 @@
 ### Pré-requisitos
 
 - [.NET SDK 8.0+](https://dotnet.microsoft.com/en-us/download)
-- MySQL instalado
 - Git instalado
+- TODO!!!!!!!!!!!!!!!!!!!!!!
 
 ### Passos
 
