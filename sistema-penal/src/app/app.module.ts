@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AddFuncionarioComponent } from './funcionario/add-funcionario/add-funcionario.component';
 import { FormsModule } from '@angular/forms';
+import { ListarFuncionariosComponent } from './funcionario/listar-funcionarios/listar-funcionarios.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     ListarAtividadesComponent,
     ListarAtividadesPrisioneiroComponent,
     LoginComponent,
-    AddFuncionarioComponent
+    AddFuncionarioComponent,
+    ListarFuncionariosComponent
   ],
   imports: [
     BrowserModule,

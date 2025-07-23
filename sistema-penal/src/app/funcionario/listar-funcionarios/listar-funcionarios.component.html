@@ -1,0 +1,34 @@
+<div class="form-container">
+    <div class="form-header">
+        <h1>Funcionários</h1>
+        <form [formGroup]="form" (ngSubmit)="buscarFuncionarios()"> <!-- ... provavelmente errado, preciso estudar mais sobre events -->
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data Nascimento</th>
+                        <th>Email</th>
+                        <th>Papel</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody *ngIf="funcionarios.length > 0">
+                    <tr *ngFor="let funcionario of funcionarios">
+                        <td>{{ funcionario.nome }}</td>
+                        <td>{{ funcionario.cpf }}</td>
+                        <td>{{ funcionario.dataNascimento }}</td>
+                        <td>{{ funcionario.email }}</td>
+                        <td>{{ funcionario.papel }}</td>
+                        
+                        <td class="action-buttons">
+                            <button class="edit-btn">Editar</button>
+                            <button class="delete-btn">Deletar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

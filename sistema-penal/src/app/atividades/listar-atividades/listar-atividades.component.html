@@ -19,14 +19,12 @@
       <table>
         <thead>
           <tr>
-            <th>ID do Prisioneiro</th>
             <th>Data</th>
             <th>Detalhes</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let atividade of atividades">
-            <td>{{ atividade.prisioneiroId }}</td>
             <td>{{ atividade.data | date:'shortDate' }}</td>
             <td>{{ detalhesAtividade(atividade) }}</td>
           </tr>
