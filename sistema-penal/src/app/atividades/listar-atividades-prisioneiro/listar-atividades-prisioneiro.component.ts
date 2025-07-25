@@ -4,15 +4,6 @@ import { AtividadeService } from '../atividade.service';
 
 type TipoAtividade = 'dias-de-trabalho' | 'estudos' | 'livros';
 
-interface Atividade {
-  id: number;
-  prisioneiroId: string;
-  data: string;
-  descricao?: string;
-  isbn?: string;
-  materia?: string;
-}
-
 @Component({
   selector: 'app-listar-atividades-prisioneiro',
   templateUrl: './listar-atividades-prisioneiro.component.html',
@@ -20,7 +11,7 @@ interface Atividade {
 })
 export class ListarAtividadesPrisioneiroComponent {
   form: FormGroup;
-  atividades: Atividade[] = [];
+  atividades: IAtividade[] = [];
   mensagem = '';
   mensagemClasse = '';
   prisioneiroId: string = '';
@@ -87,7 +78,7 @@ export class ListarAtividadesPrisioneiroComponent {
     }
   }
 
-  detalhesAtividade(atividade: Atividade): string {
+  detalhesAtividade(atividade: IAtividade): string {
     if (atividade.descricao) return atividade.descricao;
     if (atividade.isbn) return `ISBN: ${atividade.isbn}`;
     if (atividade.materia) return `Matéria: ${atividade.materia}`;

@@ -11,34 +11,32 @@ using SistemaPenal.Context;
 namespace SistemaPenal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250525224955_FixCPF")]
-    partial class FixCPF
+    [Migration("20250724165225_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("SistemaPenal.Entities.DiaDeTrabalho", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Data");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Descricao");
 
                     b.Property<Guid>("PrisioneiroId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -51,19 +49,18 @@ namespace SistemaPenal.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Data");
 
                     b.Property<string>("Materia")
-                        .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Materia");
 
                     b.Property<Guid>("PrisioneiroId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -76,37 +73,37 @@ namespace SistemaPenal.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("TEXT")
                         .HasColumnName("CPF");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("DataNascimento");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("E-mail");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Nome");
 
                     b.Property<byte>("Papel")
-                        .HasColumnType("tinyint unsigned")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("Papel");
 
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Senha");
 
                     b.HasKey("Id");
@@ -118,19 +115,19 @@ namespace SistemaPenal.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Isbn")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("char(11)")
+                        .HasColumnType("TEXT")
                         .IsFixedLength();
 
                     b.Property<Guid>("PrisioneiroId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -143,41 +140,41 @@ namespace SistemaPenal.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AnoAtual")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("AnoAtual");
 
                     b.Property<int>("ContadorDeLivros")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ContadorDeLivros");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("TEXT")
                         .HasColumnName("CPF");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("DataNascimento");
 
                     b.Property<DateTime>("DiaDeChegada")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("DiaDeChegada");
 
                     b.Property<DateTime>("DiaDeSaidaAtualizado")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("DiaDeSaidaAtualizado");
 
                     b.Property<DateTime>("DiaDeSaidaOriginal")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("DiaDeSaidaOriginal");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("Nome");
 
                     b.HasKey("Id");

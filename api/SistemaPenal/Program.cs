@@ -19,11 +19,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:5173")
+                          policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
                       });
 });
+
+#region DI
 
 builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
 
@@ -46,6 +48,8 @@ builder.Services.AddAutoMapper(typeof(EstudoService).Assembly);
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
 builder.Services.AddScoped<ILivroService, LivroService>();
 builder.Services.AddAutoMapper(typeof(LivroService).Assembly);
+
+#endregion DI
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

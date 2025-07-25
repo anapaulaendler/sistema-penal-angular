@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AtividadeService } from '../atividade.service';
 
-type TipoAtividade = 'dias-de-trabalho' | 'estudos' | 'livros';
+export type TipoAtividade = 'dias-de-trabalho' | 'estudos' | 'livros';
 
-interface Atividade {
+export interface IAtividade {
   id: number;
   prisioneiroId: string;
   data: string;
@@ -20,7 +20,7 @@ interface Atividade {
 })
 export class ListarAtividadesComponent {
   form: FormGroup;
-  atividades: Atividade[] = [];
+  atividades: IAtividade[] = [];
   erro: string = '';
 
   constructor(
@@ -46,7 +46,7 @@ export class ListarAtividadesComponent {
     }
   }
 
-  detalhesAtividade(atividade: Atividade): string {
+  detalhesAtividade(atividade: IAtividade): string {
     if (atividade.descricao) return atividade.descricao;
     if (atividade.isbn) return atividade.isbn;
     if (atividade.materia) return atividade.materia;

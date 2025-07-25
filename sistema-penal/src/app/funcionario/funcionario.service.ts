@@ -5,16 +5,18 @@ import { lastValueFrom } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class FuncionarioService {
     constructor(private http: HttpClient) {}
+    
+    private apiUrl = 'http://localhost:5034/funcionarios';
 
     buscarPorCpf(cpf: string) {
-        return lastValueFrom(this.http.get<any>(`/funcionarios/cpf/${cpf}`)); // toPromise() is being deprecated in RxJS 7 and will be removed in RxJS 8
+        return lastValueFrom(this.http.get<any>(`${this.apiUrl}/cpf/${cpf}`)); // toPromise() is being deprecated in RxJS 7 and will be removed in RxJS 8
     } 
 
     adicionarFuncionario(payload: any) {
-        return lastValueFrom(this.http.post(`/`, payload));
+        return lastValueFrom(this.http.post(`${this.apiUrl}`, payload));
     }
 
     listarFuncionarios() {
-        return lastValueFrom(this.http.get<any[]>(`/`));
+        return lastValueFrom(this.http.get<any[]>(`${this.apiUrl}`));
     }
 }
